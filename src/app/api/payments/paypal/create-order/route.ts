@@ -26,6 +26,10 @@ async function getPayPalAccessToken() {
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
+      return NextResponse.json({ error: "PayPal not configured" }, { status: 503 })
+    }
+
     const session = await auth()
 
     if (!session?.user?.id) {

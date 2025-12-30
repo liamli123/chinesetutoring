@@ -25,6 +25,12 @@ async function getPayPalAccessToken() {
 
 export async function GET(request: Request) {
   try {
+    if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
+      return NextResponse.redirect(
+        `${process.env.NEXTAUTH_URL || ''}/book/checkout?error=paypal_not_configured`
+      )
+    }
+
     const { searchParams } = new URL(request.url)
     const token = searchParams.get("token")
     const bookingId = searchParams.get("bookingId")
