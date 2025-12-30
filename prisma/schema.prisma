@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum ServiceType {
+  ONE_ON_ONE
+  GROUP
+  PACKAGE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentProvider {
+  STRIPE
+  PAYPAL
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String
+  phone         String?
+  role          Role      @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  bookings      Booking[]
+  userPackages  UserPackage[]
+  payments      Payment[]
+}
+
+model Service {
+  id            String      @id @default(cuid())
+  name          String
+  description   String
+  type          ServiceType
+  price         Float
+  duration      Int         // in minutes
+  maxStudents   Int         @default(1)
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  bookings      Booking[]
+}
+
+model Package {
+  id            String        @id @default(cuid())
+  name          String
+  description   String
+  sessions      Int
+  price         Float
+  validDays     Int           // validity period in days
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  userPackages  UserPackage[]
+}
+
+model UserPackage {
+  id                String    @id @default(cuid())
+  userId            String
+  packageId         String
+  sessionsRemaining Int
+  expiresAt         DateTime
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package           Package   @relation(fields: [packageId], references: [id])
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  userId        String
+  serviceId     String
+  dateTime      DateTime
+  endTime       DateTime
+  status        BookingStatus @default(PENDING)
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service       Service       @relation(fields: [serviceId], references: [id])
+  payment       Payment?
+}
+
+model Payment {
+  id            String          @id @default(cuid())
+  userId        String
+  bookingId     String?         @unique
+  amount        Float
+  provider      PaymentProvider
+  transactionId String?
+  status        PaymentStatus   @default(PENDING)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking       Booking?        @relation(fields: [bookingId], references: [id])
+}
+
+model Availability {
+  id            String    @id @default(cuid())
+  dayOfWeek     Int       // 0 = Sunday, 6 = Saturday
+  startTime     String    // HH:mm format
+  endTime       String    // HH:mm format
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ContactMessage {
+  id            String    @id @default(cuid())
+  name          String
+  email         String
+  subject       String
+  message       String
+  isRead        Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+}
+
+model SiteSettings {
+  id            String    @id @default(cuid())
+  key           String    @unique
+  value         String
+  updatedAt     DateTime  @updatedAt
+}
