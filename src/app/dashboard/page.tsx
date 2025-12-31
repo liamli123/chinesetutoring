@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const fetchData = async () => {
     try {
       const [bookingsRes, packagesRes] = await Promise.all([
-        fetch("/api/bookings?status=CONFIRMED"),
+        fetch("/api/bookings?upcoming=true"),
         fetch("/api/user/packages"),
       ])
 

@@ -22,17 +22,22 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url)
     const status = searchParams.get("status")
+    const upcoming = searchParams.get("upcoming")
 
     const bookings = await prisma.booking.findMany({
       where: {
         userId: session.user.id,
         ...(status && { status: status as any }),
+        ...(upcoming === "true" && {
+          dateTime: { gte: new Date() },
+          status: { in: ["PENDING", "CONFIRMED"] }
+        }),
       },
       include: {
         service: true,
         payment: true,
       },
-      orderBy: { dateTime: "desc" },
+      orderBy: { dateTime: upcoming === "true" ? "asc" : "desc" },
     })
 
     return NextResponse.json(bookings)
