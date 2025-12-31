@@ -7,9 +7,7 @@ const getStripe = () => {
   if (!process.env.STRIPE_SECRET_KEY) {
     return null
   }
-  return new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-12-15.clover",
-  })
+  return new Stripe(process.env.STRIPE_SECRET_KEY)
 }
 
 export async function POST(request: Request) {

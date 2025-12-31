@@ -19,6 +19,7 @@ function CheckoutContent() {
   const { data: session, status } = useSession()
   const [paymentMethod, setPaymentMethod] = useState<"stripe" | "paypal">("stripe")
   const [isProcessing, setIsProcessing] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const bookingId = searchParams.get("booking")
 
@@ -30,6 +31,7 @@ function CheckoutContent() {
 
   const handleStripePayment = async () => {
     setIsProcessing(true)
+    setError(null)
     try {
       const response = await fetch("/api/payments/stripe/create-session", {
         method: "POST",
@@ -41,9 +43,14 @@ function CheckoutContent() {
 
       if (data.url) {
         window.location.href = data.url
+      } else if (data.error) {
+        setError(data.error)
+      } else {
+        setError("Failed to create payment session")
       }
-    } catch (error) {
-      console.error("Stripe error:", error)
+    } catch (err) {
+      console.error("Stripe error:", err)
+      setError("Something went wrong. Please try again.")
     } finally {
       setIsProcessing(false)
     }
@@ -150,11 +157,17 @@ function CheckoutContent() {
 
                   <Separator className="my-6" />
 
+                  {error && (
+                    <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                      {error}
+                    </div>
+                  )}
+
                   <Button
                     className="w-full"
                     size="lg"
                     onClick={handlePayment}
-                    disabled={isProcessing}
+                    disabled={isProcessing || !bookingId}
                   >
                     {isProcessing ? (
                       <>
@@ -167,6 +180,10 @@ function CheckoutContent() {
                       </>
                     )}
                   </Button>
+
+                  {!bookingId && (
+                    <p className="mt-2 text-sm text-red-600">No booking found. Please start from the booking page.</p>
+                  )}
                 </CardContent>
               </Card>
             </div>
