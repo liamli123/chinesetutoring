@@ -47,15 +47,15 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-red-600 to-red-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-amber-500 text-white border-0">Contact Us</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <Badge className="mb-4 bg-blue-600 text-white border-0">Contact</Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
             Get in Touch
           </h1>
-          <p className="text-xl text-red-100 max-w-2xl mx-auto">
-            Have questions about our programs? Want to learn more about how we can help
-            you achieve your Chinese language goals? We&apos;d love to hear from you.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Have questions about tutoring? Want to discuss your academic goals?
+            I&apos;d love to hear from you and see how I can help.
           </p>
         </div>
       </section>
@@ -69,54 +69,53 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-5 w-5 text-red-600" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
-                    <a href="mailto:hello@chinesetutoring.com" className="text-gray-600 hover:text-red-600">
-                      hello@chinesetutoring.com
+                    <a href="mailto:contact@liamli.com" className="text-gray-600 hover:text-blue-600">
+                      contact@liamli.com
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-5 w-5 text-red-600" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Phone</p>
-                    <a href="tel:+1234567890" className="text-gray-600 hover:text-red-600">
+                    <a href="tel:+1234567890" className="text-gray-600 hover:text-blue-600">
                       +1 (234) 567-890
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-5 w-5 text-red-600" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Location</p>
-                    <p className="text-gray-600">Online lessons available worldwide</p>
+                    <p className="text-gray-600">Based in China, tutoring worldwide</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="h-5 w-5 text-red-600" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Clock className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Hours</p>
-                    <p className="text-gray-600">Mon - Fri: 9AM - 9PM EST</p>
-                    <p className="text-gray-600">Sat - Sun: 10AM - 6PM EST</p>
+                    <p className="font-medium text-gray-900">Availability</p>
+                    <p className="text-gray-600">Flexible scheduling across timezones</p>
+                    <p className="text-sm text-gray-500">Mon - Sun by appointment</p>
                   </div>
                 </div>
               </div>
 
               {/* Quick Response */}
-              <Card className="mt-8 bg-gradient-to-br from-red-50 to-amber-50">
+              <Card className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50">
                 <CardContent className="pt-6">
-                  <div className="text-5xl text-center mb-4">&#x95EE;</div>
                   <p className="text-center text-gray-600">
-                    We typically respond within <span className="font-semibold">24 hours</span>
+                    I typically respond within <span className="font-semibold">24 hours</span>
                   </p>
                 </CardContent>
               </Card>
@@ -219,10 +218,10 @@ export default function ContactPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Common Questions</h2>
           <div className="grid md:grid-cols-2 gap-4 text-left">
             {[
-              { q: "Do you offer trial lessons?", a: "Yes! New students can book a free 30-minute trial lesson." },
-              { q: "What ages do you teach?", a: "We teach students of all ages, from children to adults." },
-              { q: "What timezone are you in?", a: "We're based in EST but accommodate students worldwide." },
-              { q: "How do I pay for lessons?", a: "We accept credit cards and PayPal through our secure platform." }
+              { q: "What subjects do you tutor?", a: "Mathematics, Economics, Finance, Statistics, Law, and Oxbridge interview preparation." },
+              { q: "What levels do you teach?", a: "A-Level, IB, university-level coursework, and professional qualifications (ACA, CFA)." },
+              { q: "How do sessions work?", a: "Online tutoring via Zoom or similar platforms, with flexible scheduling across timezones." },
+              { q: "How do I pay?", a: "Credit cards and PayPal accepted through our secure platform." }
             ].map((faq, i) => (
               <Card key={i}>
                 <CardContent className="pt-4 pb-4">

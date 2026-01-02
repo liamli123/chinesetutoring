@@ -9,18 +9,13 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <span className="text-4xl text-red-500">&#x4E2D;</span>
-              <span className="text-xl font-bold text-white">Chinese Tutoring</span>
+              <span className="text-xl font-bold text-white">Liam Li</span>
+              <span className="text-sm text-gray-400">Academic Tutoring</span>
             </Link>
             <p className="text-gray-400 mb-4 max-w-md">
-              Professional Mandarin Chinese tutoring for English speakers.
-              Start your journey to fluency with personalized lessons from expert teachers.
+              Expert academic tutoring across mathematics, economics, finance, statistics, and law.
+              Cambridge-educated with professional finance experience from Barclays and Deloitte.
             </p>
-            <div className="flex space-x-4">
-              <span className="text-3xl opacity-50">&#x798F;</span>
-              <span className="text-3xl opacity-50">&#x5B66;</span>
-              <span className="text-3xl opacity-50">&#x7F8E;</span>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -28,22 +23,22 @@ export function Footer() {
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/services" className="hover:text-red-400 transition-colors">
-                  Our Services
+                <Link href="/services" className="hover:text-blue-400 transition-colors">
+                  Services
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-red-400 transition-colors">
-                  About Us
+                <Link href="/about" className="hover:text-blue-400 transition-colors">
+                  About Liam
                 </Link>
               </li>
               <li>
-                <Link href="/book" className="hover:text-red-400 transition-colors">
-                  Book a Lesson
+                <Link href="/book" className="hover:text-blue-400 transition-colors">
+                  Book a Session
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-red-400 transition-colors">
+                <Link href="/contact" className="hover:text-blue-400 transition-colors">
                   Contact
                 </Link>
               </li>
@@ -52,30 +47,30 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-white font-semibold mb-4">Get in Touch</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-red-400" />
-                <a href="mailto:hello@chinesetutoring.com" className="hover:text-red-400 transition-colors">
-                  hello@chinesetutoring.com
+                <Mail className="h-4 w-4 text-blue-400" />
+                <a href="mailto:contact@liamli.com" className="hover:text-blue-400 transition-colors">
+                  contact@liamli.com
                 </a>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-red-400" />
-                <a href="tel:+1234567890" className="hover:text-red-400 transition-colors">
+                <Phone className="h-4 w-4 text-blue-400" />
+                <a href="tel:+1234567890" className="hover:text-blue-400 transition-colors">
                   +1 (234) 567-890
                 </a>
               </li>
               <li className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-red-400 mt-1" />
-                <span>Online lessons available worldwide</span>
+                <MapPin className="h-4 w-4 text-blue-400 mt-1" />
+                <span>Online tutoring worldwide</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Chinese Tutoring. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Liam Li Academic Tutoring. All rights reserved.</p>
         </div>
       </div>
     </footer>

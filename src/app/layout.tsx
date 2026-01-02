@@ -6,9 +6,9 @@ import { AuthProvider } from "@/components/providers/session-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Chinese Tutoring | Learn Mandarin with Expert Teachers",
-  description: "Professional Chinese language tutoring for English speakers. 1-on-1 lessons, group classes, and flexible packages. Start your Mandarin journey today!",
-  keywords: ["Chinese tutoring", "Mandarin lessons", "learn Chinese", "Chinese language", "online tutoring"],
+  title: "Liam Li | Academic Tutoring in Maths, Economics, Finance & More",
+  description: "Expert academic tutoring from Cambridge-educated tutor with ACA & CFA qualifications. Specializing in Mathematics, Economics, Finance, Statistics, Law, and Oxbridge interview preparation.",
+  keywords: ["academic tutoring", "mathematics tutor", "economics tutor", "finance tutor", "Cambridge tutor", "Oxbridge preparation", "A-Level tutoring", "IB tutoring", "university tutoring"],
 }
 
 export default function RootLayout({

@@ -17,8 +17,8 @@ const services = [
   {
     id: "one-on-one",
     type: "ONE_ON_ONE",
-    name: "1-on-1 Private Lesson",
-    description: "Personalized instruction tailored to your goals",
+    name: "1-on-1 Tutoring Session",
+    description: "Personalized academic instruction tailored to your goals",
     price: 50,
     duration: 60,
     icon: Video,
@@ -26,8 +26,8 @@ const services = [
   {
     id: "group",
     type: "GROUP",
-    name: "Group Class",
-    description: "Learn with 4-8 other students",
+    name: "Group Tutoring",
+    description: "Small group sessions with other students",
     price: 25,
     duration: 90,
     icon: Users,
@@ -114,14 +114,14 @@ function BookContent() {
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-red-600 to-red-800 text-white py-12">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-amber-500 text-white border-0">Book a Lesson</Badge>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Schedule Your Chinese Lesson
+          <Badge className="mb-4 bg-blue-600 text-white border-0">Book a Session</Badge>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            Schedule Your Tutoring Session
           </h1>
-          <p className="text-red-100 max-w-xl mx-auto">
-            Choose your lesson type, pick a date and time, and you&apos;re all set!
+          <p className="text-gray-600 max-w-xl mx-auto">
+            Choose your session type, pick a date and time, and you&apos;re all set!
           </p>
         </div>
       </section>
@@ -134,7 +134,7 @@ function BookContent() {
               <div key={i} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                   step > i + 1 ? "bg-green-500 text-white" :
-                  step === i + 1 ? "bg-red-600 text-white" :
+                  step === i + 1 ? "bg-blue-600 text-white" :
                   "bg-gray-200 text-gray-600"
                 }`}>
                   {step > i + 1 ? <Check className="h-4 w-4" /> : i + 1}
@@ -165,17 +165,17 @@ function BookContent() {
                   <Card
                     key={service.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      selectedService === service.id ? "ring-2 ring-red-500" : ""
+                      selectedService === service.id ? "ring-2 ring-blue-500" : ""
                     }`}
                     onClick={() => handleServiceSelect(service.id)}
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                          <service.icon className="h-6 w-6 text-red-600" />
+                          <service.icon className="h-6 w-6 text-blue-600" />
                         </div>
                         {selectedService === service.id && (
-                          <Badge className="bg-red-600">Selected</Badge>
+                          <Badge className="bg-blue-600">Selected</Badge>
                         )}
                       </div>
                       <CardTitle className="mt-4">{service.name}</CardTitle>
@@ -261,7 +261,7 @@ function BookContent() {
                           <Button
                             key={time}
                             variant={selectedTime === time ? "default" : "outline"}
-                            className={selectedTime === time ? "bg-red-600" : ""}
+                            className={selectedTime === time ? "bg-blue-600" : ""}
                             onClick={() => handleTimeSelect(time)}
                           >
                             {time}
@@ -330,7 +330,7 @@ function BookContent() {
                     </div>
                     <div className="flex justify-between py-4 border-t text-lg">
                       <span className="font-semibold">Total</span>
-                      <span className="font-bold text-red-600">
+                      <span className="font-bold text-blue-600">
                         ${selectedServiceData.price}
                       </span>
                     </div>
@@ -378,7 +378,7 @@ export default function BookPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-red-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     }>
       <BookContent />

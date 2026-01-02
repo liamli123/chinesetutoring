@@ -88,7 +88,7 @@ function CheckoutContent() {
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-red-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     )
   }
@@ -100,7 +100,7 @@ function CheckoutContent() {
       <section className="py-12 flex-grow">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <Badge className="mb-4 bg-red-600">Checkout</Badge>
+            <Badge className="mb-4 bg-blue-600">Checkout</Badge>
             <h1 className="text-3xl font-bold text-gray-900">Complete Your Booking</h1>
             <p className="text-gray-600 mt-2">Secure payment powered by Stripe & PayPal</p>
           </div>
@@ -182,7 +182,7 @@ function CheckoutContent() {
                   </Button>
 
                   {!bookingId && (
-                    <p className="mt-2 text-sm text-red-600">No booking found. Please start from the booking page.</p>
+                    <p className="mt-2 text-sm text-blue-600">No booking found. Please start from the booking page.</p>
                   )}
                 </CardContent>
               </Card>
@@ -206,7 +206,7 @@ function CheckoutContent() {
                   <Separator />
                   <div className="flex justify-between font-semibold">
                     <span>Total</span>
-                    <span className="text-red-600">$50.00</span>
+                    <span className="text-blue-600">$50.00</span>
                   </div>
 
                   <div className="pt-4 space-y-2">
@@ -228,11 +228,11 @@ function CheckoutContent() {
 
               <div className="mt-4 text-center text-xs text-gray-500">
                 By completing this purchase, you agree to our{" "}
-                <a href="/terms" className="text-red-600 hover:underline">
+                <a href="/terms" className="text-blue-600 hover:underline">
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a href="/privacy" className="text-red-600 hover:underline">
+                <a href="/privacy" className="text-blue-600 hover:underline">
                   Privacy Policy
                 </a>
               </div>
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-red-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     }>
       <CheckoutContent />
