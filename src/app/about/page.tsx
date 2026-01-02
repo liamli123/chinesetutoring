@@ -2,7 +2,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Award, BookOpen, Heart, Globe, GraduationCap, Users } from "lucide-react"
+import { Award, BookOpen, Briefcase, Globe, GraduationCap, Languages, TrendingUp, BarChart3 } from "lucide-react"
 
 export default function AboutPage() {
   return (
@@ -10,186 +10,215 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-red-600 to-red-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-amber-500 text-white border-0">About Us</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Bridging Cultures Through Language
+          <Badge className="mb-4 bg-blue-600 text-white border-0">About Liam</Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            Cambridge Education. Finance Experience. Global Perspective.
           </h1>
-          <p className="text-xl text-red-100 max-w-2xl mx-auto">
-            Our mission is to make learning Mandarin Chinese accessible, enjoyable,
-            and effective for English speakers around the world.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Elite academic credentials combined with professional finance expertise and a genuine passion for helping students excel.
           </p>
         </div>
       </section>
 
-      {/* Story */}
+      {/* Background */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Professional Background</h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Founded with a passion for language education, Chinese Tutoring began
-                  when our founder recognized a gap in quality Mandarin instruction for
-                  English speakers. Having experienced the challenges of learning Chinese
-                  firsthand, we understood what works and what doesn&apos;t.
+                  I'm a Cambridge University graduate with distinguished qualifications including both ACA (Associate Chartered Accountant) and CFA (Chartered Financial Analyst) designations, as well as National Mandarin Test Level 2 Grade A certification.
                 </p>
                 <p>
-                  Today, we&apos;ve helped hundreds of students achieve their Chinese language
-                  goals - from business professionals preparing for international roles to
-                  heritage learners reconnecting with their roots, and curious individuals
-                  exploring one of the world&apos;s oldest and most fascinating cultures.
+                  My professional experience spans top-tier finance institutions including Barclays Capital and Deloitte, where I developed deep expertise in quantitative analysis, financial modeling, and complex problem-solving methodologies.
                 </p>
                 <p>
-                  Our approach combines the best of traditional Chinese teaching methods with
-                  modern pedagogical techniques, creating an immersive yet structured learning
-                  experience that produces real results.
+                  Today, I operate a specialized overseas academic support service, providing comprehensive tutoring across mathematics, economics, finance, statistics, and law. My unique combination of elite academic training, professional finance credentials, and cross-cultural teaching expertise sets me apart in the competitive educational support market.
                 </p>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-red-100 to-amber-100 rounded-2xl p-8 text-center">
-              <div className="text-9xl mb-4">&#x5E08;</div>
-              <p className="text-gray-600 text-lg">shī - teacher, master</p>
-              <p className="text-gray-500 text-sm mt-2">The character represents wisdom passed down through generations</p>
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Academic Credentials</h2>
+              <div className="space-y-3">
+                {[
+                  { icon: GraduationCap, text: "Cambridge University graduate" },
+                  { icon: Award, text: "ACA (Associate Chartered Accountant)" },
+                  { icon: Award, text: "CFA (Chartered Financial Analyst)" },
+                  { icon: Languages, text: "National Mandarin Test Level 2 Grade A" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
+                    <item.icon className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                    <span className="text-gray-700">{item.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Teaching Expertise */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Teaching Expertise</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              These principles guide everything we do and shape the experience
-              we create for our students.
+              Comprehensive academic support across multiple disciplines and educational levels
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Heart,
-                title: "Passion for Teaching",
-                description: "We love what we do. Our enthusiasm for Chinese language and culture is contagious and makes learning enjoyable.",
-                character: "&#x7231;"
-              },
-              {
-                icon: Award,
-                title: "Excellence",
-                description: "We maintain the highest standards in our teaching methods, materials, and student support.",
-                character: "&#x4F18;"
-              },
-              {
-                icon: Users,
-                title: "Student-Centered",
-                description: "Every student is unique. We adapt our approach to match individual learning styles and goals.",
-                character: "&#x751F;"
-              },
-              {
-                icon: Globe,
-                title: "Cultural Bridge",
-                description: "Language is a gateway to culture. We teach not just words, but the rich context behind them.",
-                character: "&#x6587;"
-              },
-              {
-                icon: BookOpen,
-                title: "Continuous Learning",
-                description: "We constantly improve our methods and stay updated with the latest in language education.",
-                character: "&#x8FDB;"
-              },
-              {
-                icon: GraduationCap,
-                title: "Results-Driven",
-                description: "We measure our success by your progress. Your achievements are our greatest reward.",
-                character: "&#x6210;"
-              }
-            ].map((value, i) => (
-              <Card key={i} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <value.icon className="h-8 w-8 text-red-600" />
-                  </div>
-                  <div className="text-4xl mb-2" dangerouslySetInnerHTML={{ __html: value.character }} />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-gray-600">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Methodology */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Teaching Methodology</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              A balanced approach that combines multiple proven techniques for comprehensive language acquisition.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                step: "1",
-                title: "Immersive Input",
-                description: "Maximum exposure to authentic Chinese through conversations, media, and real-world materials.",
-                character: "&#x542C;"
-              },
-              {
-                step: "2",
-                title: "Structured Grammar",
-                description: "Clear explanations of grammar patterns with plenty of examples and practice exercises.",
-                character: "&#x8BED;"
-              },
-              {
-                step: "3",
-                title: "Active Production",
-                description: "Regular speaking and writing practice to build fluency and confidence.",
-                character: "&#x8BF4;"
-              },
-              {
-                step: "4",
-                title: "Cultural Context",
-                description: "Understanding the culture behind the language for deeper comprehension.",
-                character: "&#x6587;"
-              }
-            ].map((method, i) => (
-              <div key={i} className="text-center">
-                <div className="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                  {method.step}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <BookOpen className="h-6 w-6 text-blue-600" />
                 </div>
-                <div className="text-5xl mb-3" dangerouslySetInnerHTML={{ __html: method.character }} />
-                <h3 className="font-semibold text-gray-900 mb-2">{method.title}</h3>
-                <p className="text-sm text-gray-600">{method.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Mathematics</h3>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>• Engineering Mathematics (MTH101 & advanced)</li>
+                  <li>• Complex Analysis & Laurent Series</li>
+                  <li>• IB & A-Level Mathematics</li>
+                  <li>• Actuarial Mathematics</li>
+                  <li>• Portfolio Optimization</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Economics & Finance</h3>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>• Cambridge Economics Interview Prep</li>
+                  <li>• Financial Modeling & Analysis</li>
+                  <li>• Investment Analysis</li>
+                  <li>• Corporate Finance</li>
+                  <li>• A-Level & IB Economics</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <BarChart3 className="h-6 w-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Statistics & Data</h3>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>• Advanced Statistical Methods</li>
+                  <li>• R and Python for Data Analysis</li>
+                  <li>• Statistical Computing</li>
+                  <li>• Probability Theory</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 bg-blue-50 rounded-2xl p-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Educational Levels</h3>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• A-Level examination preparation</li>
+                  <li>• IB (International Baccalaureate) curriculum</li>
+                  <li>• Cambridge & Oxbridge interview preparation</li>
+                  <li>• University-level coursework (undergraduate & postgraduate)</li>
+                  <li>• Professional qualifications (ACA, CFA prep)</li>
+                </ul>
               </div>
-            ))}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Unique Value Proposition</h3>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• Native-level proficiency in English and Mandarin</li>
+                  <li>• Bridge Western and Eastern academic approaches</li>
+                  <li>• Real-world finance experience from top firms</li>
+                  <li>• Deep conceptual understanding over rote memorization</li>
+                  <li>• Custom materials tailored to individual needs</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-red-600 text-white">
+      {/* Teaching Philosophy */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Teaching Philosophy</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Combining rigorous academic standards with accessible, culturally-sensitive teaching methods
+            </p>
+          </div>
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0">
+            <CardContent className="pt-8 pb-8">
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                My approach combines rigorous academic standards from Cambridge with professional finance credentials and accessible, culturally-sensitive teaching methods. I focus on developing genuine understanding and analytical thinking skills that serve students beyond immediate examination success.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6 mt-8">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">Core Principles</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Deep conceptual understanding over rote memorization</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Integration of real-world applications with theory</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Breaking complex systems into comprehensible components</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-3">What Sets Me Apart</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Bilingual capability with cross-cultural experience</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Practical finance insights from top-tier firms</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Custom learning materials for individual needs</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold mb-2">500+</div>
-              <div className="text-red-200">Happy Students</div>
+          <h2 className="text-3xl font-bold text-center mb-12">Professional Experience</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <Briefcase className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Barclays Capital</h3>
+              <p className="text-blue-100">Investment banking operations and quantitative analysis</p>
             </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">10,000+</div>
-              <div className="text-red-200">Lessons Taught</div>
+            <div className="text-center">
+              <Briefcase className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Deloitte</h3>
+              <p className="text-blue-100">Professional services and financial analysis</p>
             </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">5+</div>
-              <div className="text-red-200">Years Experience</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">98%</div>
-              <div className="text-red-200">Satisfaction Rate</div>
+            <div className="text-center">
+              <Globe className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Global Experience</h3>
+              <p className="text-blue-100">Operations across China, UK, and Australia</p>
             </div>
           </div>
         </div>

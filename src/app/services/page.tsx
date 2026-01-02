@@ -4,293 +4,246 @@ import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CheckCircle, Users, Video, Package, Clock, BookOpen, Target, Zap } from "lucide-react"
+import { CheckCircle, Calculator, TrendingUp, BarChart3, Scale, GraduationCap, BookOpen } from "lucide-react"
 
 export default function ServicesPage() {
+  const subjects = [
+    {
+      title: "Mathematics",
+      icon: Calculator,
+      color: "blue",
+      description: "From fundamentals to advanced university-level topics",
+      topics: [
+        "Engineering Mathematics (MTH101 and advanced)",
+        "Complex Analysis & Laurent Series",
+        "Sequences and Series (IB curriculum)",
+        "Bessel Functions and Laplace Transforms",
+        "Actuarial Mathematics",
+        "Portfolio Optimization & Quantitative Methods",
+        "A-Level & IB Mathematics"
+      ]
+    },
+    {
+      title: "Economics",
+      icon: TrendingUp,
+      color: "emerald",
+      description: "Theoretical and applied economics at all levels",
+      topics: [
+        "Cambridge Economics Interview Preparation",
+        "Microeconomics & Macroeconomics",
+        "A-Level & IB Economics",
+        "Economic Theory",
+        "Applied Economics",
+        "Development Economics"
+      ]
+    },
+    {
+      title: "Finance",
+      icon: BarChart3,
+      color: "indigo",
+      description: "Corporate finance, investments, and financial modeling",
+      topics: [
+        "Financial Modeling & Analysis",
+        "Investment Analysis",
+        "Corporate Finance",
+        "Portfolio Optimization",
+        "Advanced Excel for Finance",
+        "CFA Exam Preparation"
+      ]
+    },
+    {
+      title: "Statistics",
+      icon: BarChart3,
+      color: "purple",
+      description: "Statistical methods and data analysis",
+      topics: [
+        "Advanced Statistical Methods",
+        "R Programming for Data Analysis",
+        "Python for Statistical Computing",
+        "Probability Theory",
+        "Statistical Inference",
+        "Data Visualization"
+      ]
+    },
+    {
+      title: "Law",
+      icon: Scale,
+      color: "amber",
+      description: "Legal frameworks and case analysis",
+      topics: [
+        "Competition Law (LAWS8219)",
+        "Legal Frameworks",
+        "Case Analysis",
+        "University Law Modules",
+        "Legal Research & Writing"
+      ]
+    },
+    {
+      title: "Oxbridge Prep",
+      icon: GraduationCap,
+      color: "rose",
+      description: "Specialized coaching for Cambridge & Oxford admissions",
+      topics: [
+        "Cambridge Interview Preparation",
+        "Oxford Interview Preparation",
+        "Personal Statement Review",
+        "Mock Interviews",
+        "Application Strategy",
+        "Subject-specific Preparation"
+      ]
+    }
+  ]
+
+  const colorClasses: Record<string, {bg: string, iconBg: string, iconColor: string, border: string}> = {
+    blue: { bg: "bg-blue-50", iconBg: "bg-blue-100", iconColor: "text-blue-600", border: "border-t-blue-600" },
+    emerald: { bg: "bg-emerald-50", iconBg: "bg-emerald-100", iconColor: "text-emerald-600", border: "border-t-emerald-600" },
+    indigo: { bg: "bg-indigo-50", iconBg: "bg-indigo-100", iconColor: "text-indigo-600", border: "border-t-indigo-600" },
+    purple: { bg: "bg-purple-50", iconBg: "bg-purple-100", iconColor: "text-purple-600", border: "border-t-purple-600" },
+    amber: { bg: "bg-amber-50", iconBg: "bg-amber-100", iconColor: "text-amber-600", border: "border-t-amber-600" },
+    rose: { bg: "bg-rose-50", iconBg: "bg-rose-100", iconColor: "text-rose-600", border: "border-t-rose-600" }
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-red-600 to-red-800 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-amber-500 text-white border-0">Our Services</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Find Your Perfect Learning Path
+          <Badge className="mb-4 bg-blue-600 text-white border-0">Tutoring Services</Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            Expert Academic Support Across Multiple Disciplines
           </h1>
-          <p className="text-xl text-red-100 max-w-2xl mx-auto">
-            Choose from personalized 1-on-1 lessons, interactive group classes,
-            or value-packed lesson packages tailored to your goals.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Personalized tutoring from A-Level to university and professional qualifications, backed by Cambridge education and real-world finance experience.
           </p>
         </div>
       </section>
 
-      {/* Services Tabs */}
+      {/* Subject Areas */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs defaultValue="one-on-one" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-12">
-              <TabsTrigger value="one-on-one" className="text-sm md:text-base">1-on-1 Lessons</TabsTrigger>
-              <TabsTrigger value="group" className="text-sm md:text-base">Group Classes</TabsTrigger>
-              <TabsTrigger value="packages" className="text-sm md:text-base">Packages</TabsTrigger>
-            </TabsList>
-
-            {/* 1-on-1 Lessons */}
-            <TabsContent value="one-on-one">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                      <Video className="h-6 w-6 text-red-600" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {subjects.map((subject, index) => {
+              const colors = colorClasses[subject.color]
+              const Icon = subject.icon
+              return (
+                <Card key={index} className={`hover:shadow-xl transition-shadow border-t-4 ${colors.border}`}>
+                  <CardHeader>
+                    <div className={`w-12 h-12 ${colors.iconBg} rounded-lg flex items-center justify-center mb-4`}>
+                      <Icon className={`h-6 w-6 ${colors.iconColor}`} />
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-900">1-on-1 Private Lessons</h2>
-                  </div>
-                  <p className="text-lg text-gray-600 mb-6">
-                    Get undivided attention from your tutor with lessons customized
-                    to your learning style, pace, and goals. Perfect for serious learners
-                    who want rapid progress.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {[
-                      "Personalized curriculum based on your goals",
-                      "Flexible scheduling - book anytime",
-                      "Focus on your weaknesses",
-                      "Real-time feedback and corrections",
-                      "Learn at your own pace",
-                      "Materials tailored to your interests"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-gray-600">
-                        <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="text-4xl font-bold text-gray-900">$50</div>
-                    <div className="text-gray-600">
-                      <div className="font-medium">per hour</div>
-                      <div className="text-sm">60-minute session</div>
-                    </div>
-                  </div>
-                  <Link href="/book?type=one-on-one">
-                    <Button size="lg">Book a 1-on-1 Lesson</Button>
-                  </Link>
-                </div>
-                <div className="bg-gradient-to-br from-red-50 to-amber-50 rounded-2xl p-8">
-                  <h3 className="font-semibold text-gray-900 mb-4">Ideal for:</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Card className="bg-white">
-                      <CardContent className="p-4 text-center">
-                        <Target className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium">Goal-Oriented Learners</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-white">
-                      <CardContent className="p-4 text-center">
-                        <Zap className="h-8 w-8 text-amber-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium">Fast Progress Seekers</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-white">
-                      <CardContent className="p-4 text-center">
-                        <Clock className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium">Busy Professionals</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-white">
-                      <CardContent className="p-4 text-center">
-                        <BookOpen className="h-8 w-8 text-amber-600 mx-auto mb-2" />
-                        <p className="text-sm font-medium">Exam Preparation</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* Group Classes */}
-            <TabsContent value="group">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                      <Users className="h-6 w-6 text-red-600" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-gray-900">Group Classes</h2>
-                  </div>
-                  <p className="text-lg text-gray-600 mb-6">
-                    Learn alongside peers in small, interactive group sessions.
-                    Practice conversation, participate in activities, and build
-                    confidence in a supportive environment.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {[
-                      "Small groups of 4-8 students",
-                      "Interactive activities and games",
-                      "Practice conversation with peers",
-                      "Weekly scheduled sessions",
-                      "Build confidence speaking",
-                      "Make friends who share your interest"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-gray-600">
-                        <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="text-4xl font-bold text-gray-900">$25</div>
-                    <div className="text-gray-600">
-                      <div className="font-medium">per hour</div>
-                      <div className="text-sm">90-minute session</div>
-                    </div>
-                  </div>
-                  <Link href="/book?type=group">
-                    <Button size="lg">Join a Group Class</Button>
-                  </Link>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900">Available Classes:</h3>
-                  {[
-                    { level: "Beginner", time: "Mon & Wed 7PM EST", spots: 3 },
-                    { level: "Intermediate", time: "Tue & Thu 6PM EST", spots: 5 },
-                    { level: "Advanced", time: "Sat 10AM EST", spots: 2 },
-                    { level: "Conversation", time: "Sun 2PM EST", spots: 4 },
-                  ].map((cls, i) => (
-                    <Card key={i} className="hover:shadow-md transition-shadow">
-                      <CardContent className="p-4 flex items-center justify-between">
-                        <div>
-                          <p className="font-semibold text-gray-900">{cls.level} Chinese</p>
-                          <p className="text-sm text-gray-600">{cls.time}</p>
-                        </div>
-                        <Badge variant={cls.spots <= 2 ? "destructive" : "secondary"}>
-                          {cls.spots} spots left
-                        </Badge>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-
-            {/* Packages */}
-            <TabsContent value="packages" id="packages">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Lesson Packages</h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Commit to your learning journey and save. Our packages offer
-                  the best value for dedicated learners.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    name: "Starter Pack",
-                    sessions: 5,
-                    price: 225,
-                    originalPrice: 250,
-                    savings: 10,
-                    validity: 60,
-                    features: ["5 x 1-hour lessons", "Valid for 60 days", "Flexible scheduling", "10% savings"]
-                  },
-                  {
-                    name: "Growth Pack",
-                    sessions: 10,
-                    price: 400,
-                    originalPrice: 500,
-                    savings: 20,
-                    validity: 90,
-                    popular: true,
-                    features: ["10 x 1-hour lessons", "Valid for 90 days", "Priority booking", "20% savings", "Free study materials"]
-                  },
-                  {
-                    name: "Mastery Pack",
-                    sessions: 20,
-                    price: 700,
-                    originalPrice: 1000,
-                    savings: 30,
-                    validity: 180,
-                    features: ["20 x 1-hour lessons", "Valid for 180 days", "VIP booking priority", "30% savings", "Free study materials", "Progress assessments"]
-                  }
-                ].map((pkg, i) => (
-                  <Card key={i} className={`relative ${pkg.popular ? 'border-2 border-red-500 scale-105' : ''}`}>
-                    {pkg.popular && (
-                      <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600">
-                        Most Popular
-                      </Badge>
-                    )}
-                    <CardHeader className="text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Package className="h-8 w-8 text-red-600" />
-                      </div>
-                      <CardTitle>{pkg.name}</CardTitle>
-                      <CardDescription>{pkg.sessions} lessons</CardDescription>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                      <div className="mb-4">
-                        <span className="text-4xl font-bold text-gray-900">${pkg.price}</span>
-                        <span className="text-gray-500 line-through ml-2">${pkg.originalPrice}</span>
-                      </div>
-                      <Badge variant="success" className="mb-6">Save {pkg.savings}%</Badge>
-                      <ul className="space-y-2 text-left mb-6">
-                        {pkg.features.map((feature, j) => (
-                          <li key={j} className="flex items-center gap-2 text-gray-600">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                      <Link href={`/book?type=package&package=${pkg.sessions}`}>
-                        <Button className="w-full" variant={pkg.popular ? "default" : "outline"}>
-                          Get {pkg.name}
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
+                    <CardTitle className="text-2xl">{subject.title}</CardTitle>
+                    <CardDescription className="text-base">{subject.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {subject.topics.map((topic, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span>{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* How It Works */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <p className="text-lg text-gray-600">Simple, flexible, and tailored to your needs</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  1
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Get in Touch</h3>
+                <p className="text-gray-600">
+                  Contact me with your subject area, current level, and learning goals. We'll discuss your specific needs.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  2
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Customized Plan</h3>
+                <p className="text-gray-600">
+                  I'll create a personalized learning plan with materials tailored to your curriculum and examination requirements.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  3
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Start Learning</h3>
+                <p className="text-gray-600">
+                  Flexible online sessions at times that suit you, with ongoing support and progress tracking.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Educational Levels */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Educational Levels Covered</h2>
+            <p className="text-lg text-gray-600">From secondary school to professional qualifications</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                q: "What if I need to cancel or reschedule a lesson?",
-                a: "You can reschedule or cancel any lesson up to 24 hours before the scheduled time without any penalty. Cancellations with less notice may forfeit the lesson."
-              },
-              {
-                q: "How long are package lessons valid?",
-                a: "Package validity varies: Starter Pack (60 days), Growth Pack (90 days), and Mastery Pack (180 days). We can discuss extensions for special circumstances."
-              },
-              {
-                q: "Can I switch between 1-on-1 and group lessons?",
-                a: "Yes! If you have a lesson package, you can use your credits for either 1-on-1 lessons (1 credit) or group classes (0.5 credits)."
-              },
-              {
-                q: "What level of Chinese do you teach?",
-                a: "We teach all levels from complete beginners to advanced learners. We'll assess your current level and create a customized learning plan."
-              },
-              {
-                q: "What platform do you use for online lessons?",
-                a: "We primarily use Zoom for lessons, which allows for screen sharing, digital whiteboards, and recording capabilities. Lessons can also be conducted via Google Meet or Skype."
-              }
-            ].map((faq, i) => (
-              <Card key={i}>
-                <CardContent className="pt-6">
-                  <h3 className="font-semibold text-gray-900 mb-2">{faq.q}</h3>
-                  <p className="text-gray-600">{faq.a}</p>
+              { title: "A-Level", description: "Comprehensive exam preparation" },
+              { title: "IB (International Baccalaureate)", description: "All subject levels" },
+              { title: "University", description: "Undergraduate & postgraduate" },
+              { title: "Professional", description: "ACA, CFA preparation" }
+            ].map((level, i) => (
+              <Card key={i} className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6 pb-6">
+                  <BookOpen className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                  <h3 className="font-semibold text-gray-900 mb-1">{level.title}</h3>
+                  <p className="text-sm text-gray-600">{level.description}</p>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Book a session or get in touch to discuss your learning needs
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/book">
+              <Button size="lg" className="font-semibold bg-white text-blue-600 hover:bg-blue-50">
+                Book a Session
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-blue-700">
+                Contact Me
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -31,8 +31,8 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-3xl text-red-600">&#x4E2D;</span>
-            <span className="text-xl font-bold text-gray-900">Chinese Tutoring</span>
+            <span className="text-xl font-bold text-gray-900">Liam Li</span>
+            <span className="text-sm text-gray-500">Academic Tutoring</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -41,7 +41,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-600 hover:text-red-600 transition-colors font-medium"
+                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
                 {link.label}
               </Link>
@@ -55,7 +55,7 @@ export function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-10 w-10">
-                      <AvatarFallback className="bg-red-100 text-red-600">
+                      <AvatarFallback className="bg-blue-100 text-blue-600">
                         {session.user?.name?.charAt(0).toUpperCase() || "U"}
                       </AvatarFallback>
                     </Avatar>
@@ -132,7 +132,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="block py-2 text-gray-600 hover:text-red-600 transition-colors font-medium"
+                className="block py-2 text-gray-600 hover:text-blue-600 transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
