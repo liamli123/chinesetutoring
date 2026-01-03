@@ -26,28 +26,34 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
+        {/* Subtle animated background pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative">
           <div className="max-w-3xl mx-auto text-center">
-            <Badge className="mb-4 bg-blue-600 text-white border-0">
+            <Badge className="mb-4 bg-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-shadow">
               Academic Excellence
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900 animate-[fadeInUp_0.6s_ease-out]">
               Expert Academic Tutoring in{" "}
-              <span className="text-blue-600">Finance, Maths & More</span>
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Finance, Maths & More</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed animate-[fadeInUp_0.8s_ease-out]">
               Cambridge-educated tutor with professional finance credentials offering personalized instruction across mathematics, economics, finance, statistics, and law.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-[fadeInUp_1s_ease-out]">
               <Link href="/book">
-                <Button size="lg" className="font-semibold bg-blue-600 hover:bg-blue-700">
+                <Button size="lg" className="font-semibold bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                   Book a Session
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/about">
-                <Button size="lg" variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                <Button size="lg" variant="outline" className="border-2 border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-600 hover:text-blue-600 shadow-md hover:shadow-lg transition-all duration-300">
                   About Liam
                 </Button>
               </Link>
@@ -113,12 +119,12 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Mathematics */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-blue-600">
+            <Card className="card-hover border-t-4 border-t-blue-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Calculator className="h-6 w-6 text-blue-600" />
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors duration-300">
+                  <Calculator className="h-6 w-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Mathematics</CardTitle>
+                <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">Mathematics</CardTitle>
                 <CardDescription>From basics to advanced topics</CardDescription>
               </CardHeader>
               <CardContent>
@@ -144,12 +150,12 @@ export default function HomePage() {
             </Card>
 
             {/* Economics */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-emerald-600">
+            <Card className="card-hover border-t-4 border-t-emerald-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                  <TrendingUp className="h-6 w-6 text-emerald-600" />
+                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition-colors duration-300">
+                  <TrendingUp className="h-6 w-6 text-emerald-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Economics</CardTitle>
+                <CardTitle className="text-xl group-hover:text-emerald-600 transition-colors">Economics</CardTitle>
                 <CardDescription>Macro, micro, and applied economics</CardDescription>
               </CardHeader>
               <CardContent>
@@ -175,12 +181,12 @@ export default function HomePage() {
             </Card>
 
             {/* Finance */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-indigo-600">
+            <Card className="card-hover border-t-4 border-t-indigo-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                  <BarChart3 className="h-6 w-6 text-indigo-600" />
+                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 transition-colors duration-300">
+                  <BarChart3 className="h-6 w-6 text-indigo-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Finance</CardTitle>
+                <CardTitle className="text-xl group-hover:text-indigo-600 transition-colors">Finance</CardTitle>
                 <CardDescription>Corporate finance to investments</CardDescription>
               </CardHeader>
               <CardContent>
@@ -206,12 +212,12 @@ export default function HomePage() {
             </Card>
 
             {/* Statistics */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-purple-600">
+            <Card className="card-hover border-t-4 border-t-purple-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <BarChart3 className="h-6 w-6 text-purple-600" />
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-600 transition-colors duration-300">
+                  <BarChart3 className="h-6 w-6 text-purple-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Statistics</CardTitle>
+                <CardTitle className="text-xl group-hover:text-purple-600 transition-colors">Statistics</CardTitle>
                 <CardDescription>Data analysis and statistical methods</CardDescription>
               </CardHeader>
               <CardContent>
@@ -237,12 +243,12 @@ export default function HomePage() {
             </Card>
 
             {/* Law */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-amber-600">
+            <Card className="card-hover border-t-4 border-t-amber-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
-                  <Scale className="h-6 w-6 text-amber-600" />
+                <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-amber-600 transition-colors duration-300">
+                  <Scale className="h-6 w-6 text-amber-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Law</CardTitle>
+                <CardTitle className="text-xl group-hover:text-amber-600 transition-colors">Law</CardTitle>
                 <CardDescription>Legal frameworks and case analysis</CardDescription>
               </CardHeader>
               <CardContent>
@@ -268,12 +274,12 @@ export default function HomePage() {
             </Card>
 
             {/* Cambridge Interview Prep */}
-            <Card className="hover:shadow-xl transition-shadow border-t-4 border-t-rose-600">
+            <Card className="card-hover border-t-4 border-t-rose-600 group cursor-pointer">
               <CardHeader>
-                <div className="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-4">
-                  <GraduationCap className="h-6 w-6 text-rose-600" />
+                <div className="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-rose-600 transition-colors duration-300">
+                  <GraduationCap className="h-6 w-6 text-rose-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <CardTitle className="text-xl">Oxbridge Prep</CardTitle>
+                <CardTitle className="text-xl group-hover:text-rose-600 transition-colors">Oxbridge Prep</CardTitle>
                 <CardDescription>Specialized admissions coaching</CardDescription>
               </CardHeader>
               <CardContent>
@@ -301,9 +307,9 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                 View All Services
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>
@@ -427,17 +433,17 @@ export default function HomePage() {
                 rating: 5,
               },
             ].map((testimonial, index) => (
-              <Card key={index} className="bg-white">
+              <Card key={index} className="bg-white card-hover">
                 <CardContent className="pt-6">
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                      <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400 transition-transform hover:scale-125" />
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-4">&ldquo;{testimonial.content}&rdquo;</p>
+                  <p className="text-gray-600 mb-4 leading-relaxed">&ldquo;{testimonial.content}&rdquo;</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-blue-600 font-semibold">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center transition-colors group-hover:bg-blue-600">
+                      <span className="text-blue-600 font-semibold group-hover:text-white transition-colors">
                         {testimonial.name.charAt(0)}
                       </span>
                     </div>
@@ -454,23 +460,29 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-700 text-white relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-20 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-20 w-80 h-80 bg-blue-300 rounded-full mix-blend-overlay filter blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        </div>
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 animate-[fadeInUp_0.6s_ease-out]">
             Ready to Excel in Your Studies?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-blue-100 mb-8 leading-relaxed animate-[fadeInUp_0.8s_ease-out]">
             Get expert guidance from a Cambridge-educated tutor with real-world experience. Whether you're preparing for exams, university interviews, or professional qualifications.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-[fadeInUp_1s_ease-out]">
             <Link href="/book">
-              <Button size="lg" className="font-semibold bg-white text-blue-600 hover:bg-blue-50">
+              <Button size="lg" className="font-semibold bg-white text-blue-600 hover:bg-blue-50 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
                 Book a Session
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-blue-700">
+              <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-700 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                 Get in Touch
               </Button>
             </Link>

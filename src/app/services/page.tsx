@@ -94,13 +94,13 @@ export default function ServicesPage() {
     }
   ]
 
-  const colorClasses: Record<string, {bg: string, iconBg: string, iconColor: string, border: string}> = {
-    blue: { bg: "bg-blue-50", iconBg: "bg-blue-100", iconColor: "text-blue-600", border: "border-t-blue-600" },
-    emerald: { bg: "bg-emerald-50", iconBg: "bg-emerald-100", iconColor: "text-emerald-600", border: "border-t-emerald-600" },
-    indigo: { bg: "bg-indigo-50", iconBg: "bg-indigo-100", iconColor: "text-indigo-600", border: "border-t-indigo-600" },
-    purple: { bg: "bg-purple-50", iconBg: "bg-purple-100", iconColor: "text-purple-600", border: "border-t-purple-600" },
-    amber: { bg: "bg-amber-50", iconBg: "bg-amber-100", iconColor: "text-amber-600", border: "border-t-amber-600" },
-    rose: { bg: "bg-rose-50", iconBg: "bg-rose-100", iconColor: "text-rose-600", border: "border-t-rose-600" }
+  const colorClasses: Record<string, {bg: string, iconBg: string, iconColor: string, border: string, hoverIconBg: string, hoverIconColor: string}> = {
+    blue: { bg: "bg-blue-50", iconBg: "bg-blue-100", iconColor: "text-blue-600", border: "border-t-blue-600", hoverIconBg: "group-hover:bg-blue-600", hoverIconColor: "group-hover:text-white" },
+    emerald: { bg: "bg-emerald-50", iconBg: "bg-emerald-100", iconColor: "text-emerald-600", border: "border-t-emerald-600", hoverIconBg: "group-hover:bg-emerald-600", hoverIconColor: "group-hover:text-white" },
+    indigo: { bg: "bg-indigo-50", iconBg: "bg-indigo-100", iconColor: "text-indigo-600", border: "border-t-indigo-600", hoverIconBg: "group-hover:bg-indigo-600", hoverIconColor: "group-hover:text-white" },
+    purple: { bg: "bg-purple-50", iconBg: "bg-purple-100", iconColor: "text-purple-600", border: "border-t-purple-600", hoverIconBg: "group-hover:bg-purple-600", hoverIconColor: "group-hover:text-white" },
+    amber: { bg: "bg-amber-50", iconBg: "bg-amber-100", iconColor: "text-amber-600", border: "border-t-amber-600", hoverIconBg: "group-hover:bg-amber-600", hoverIconColor: "group-hover:text-white" },
+    rose: { bg: "bg-rose-50", iconBg: "bg-rose-100", iconColor: "text-rose-600", border: "border-t-rose-600", hoverIconBg: "group-hover:bg-rose-600", hoverIconColor: "group-hover:text-white" }
   }
 
   return (
@@ -128,12 +128,12 @@ export default function ServicesPage() {
               const colors = colorClasses[subject.color]
               const Icon = subject.icon
               return (
-                <Card key={index} className={`hover:shadow-xl transition-shadow border-t-4 ${colors.border}`}>
+                <Card key={index} className={`card-hover border-t-4 ${colors.border} group cursor-pointer`}>
                   <CardHeader>
-                    <div className={`w-12 h-12 ${colors.iconBg} rounded-lg flex items-center justify-center mb-4`}>
-                      <Icon className={`h-6 w-6 ${colors.iconColor}`} />
+                    <div className={`w-12 h-12 ${colors.iconBg} ${colors.hoverIconBg} rounded-lg flex items-center justify-center mb-4 transition-colors duration-300`}>
+                      <Icon className={`h-6 w-6 ${colors.iconColor} ${colors.hoverIconColor} transition-colors duration-300`} />
                     </div>
-                    <CardTitle className="text-2xl">{subject.title}</CardTitle>
+                    <CardTitle className="text-2xl group-hover:text-${subject.color}-600 transition-colors">{subject.title}</CardTitle>
                     <CardDescription className="text-base">{subject.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
