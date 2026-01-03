@@ -86,11 +86,44 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -99,8 +132,73 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Scroll-triggered animations */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-fade-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-fade-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-scale-in {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* Smooth transitions for all interactive elements */
@@ -128,6 +226,57 @@ button, a, [role="button"] {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Parallax effects */
+.parallax-slow {
+  transform: translateY(var(--parallax-offset-slow, 0));
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-medium {
+  transform: translateY(var(--parallax-offset-medium, 0));
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-fast {
+  transform: translateY(var(--parallax-offset-fast, 0));
+  transition: transform 0.1s ease-out;
+}
+
+/* Animated progress bars */
+@keyframes progress-fill {
+  from {
+    width: 0%;
+  }
+}
+
+.progress-bar {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+/* Floating decorative elements */
+.float-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-element-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Glowing effects */
+.glow {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+  }
 }
 
 /* Smooth scrolling */
