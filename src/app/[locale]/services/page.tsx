@@ -1,4 +1,7 @@
-import Link from "next/link"
+"use client"
+
+import { Link } from "@/i18n/routing"
+import { useTranslations } from "next-intl"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
@@ -7,89 +10,91 @@ import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Calculator, TrendingUp, BarChart3, Scale, GraduationCap, BookOpen } from "lucide-react"
 
 export default function ServicesPage() {
+  const t = useTranslations('services')
+
   const subjects = [
     {
-      title: "Mathematics",
+      title: t('mathematics.title'),
       icon: Calculator,
       color: "blue",
-      description: "From fundamentals to advanced university-level topics",
+      description: t('mathematics.description'),
       topics: [
-        "Engineering Mathematics (MTH101 and advanced)",
-        "Complex Analysis & Laurent Series",
-        "Sequences and Series (IB curriculum)",
-        "Bessel Functions and Laplace Transforms",
-        "Actuarial Mathematics",
-        "Portfolio Optimization & Quantitative Methods",
-        "A-Level & IB Mathematics"
+        t('mathematics.topic1'),
+        t('mathematics.topic2'),
+        t('mathematics.topic3'),
+        t('mathematics.topic4'),
+        t('mathematics.topic5'),
+        t('mathematics.topic6'),
+        t('mathematics.topic7')
       ]
     },
     {
-      title: "Economics",
+      title: t('economics.title'),
       icon: TrendingUp,
       color: "emerald",
-      description: "Theoretical and applied economics at all levels",
+      description: t('economics.description'),
       topics: [
-        "Cambridge Economics Interview Preparation",
-        "Microeconomics & Macroeconomics",
-        "A-Level & IB Economics",
-        "Economic Theory",
-        "Applied Economics",
-        "Development Economics"
+        t('economics.topic1'),
+        t('economics.topic2'),
+        t('economics.topic3'),
+        t('economics.topic4'),
+        t('economics.topic5'),
+        t('economics.topic6')
       ]
     },
     {
-      title: "Finance",
+      title: t('finance.title'),
       icon: BarChart3,
       color: "indigo",
-      description: "Corporate finance, investments, and financial modeling",
+      description: t('finance.description'),
       topics: [
-        "Financial Modeling & Analysis",
-        "Investment Analysis",
-        "Corporate Finance",
-        "Portfolio Optimization",
-        "Advanced Excel for Finance",
-        "CFA Exam Preparation"
+        t('finance.topic1'),
+        t('finance.topic2'),
+        t('finance.topic3'),
+        t('finance.topic4'),
+        t('finance.topic5'),
+        t('finance.topic6')
       ]
     },
     {
-      title: "Statistics",
+      title: t('statistics.title'),
       icon: BarChart3,
       color: "purple",
-      description: "Statistical methods and data analysis",
+      description: t('statistics.description'),
       topics: [
-        "Advanced Statistical Methods",
-        "R Programming for Data Analysis",
-        "Python for Statistical Computing",
-        "Probability Theory",
-        "Statistical Inference",
-        "Data Visualization"
+        t('statistics.topic1'),
+        t('statistics.topic2'),
+        t('statistics.topic3'),
+        t('statistics.topic4'),
+        t('statistics.topic5'),
+        t('statistics.topic6')
       ]
     },
     {
-      title: "Law",
+      title: t('law.title'),
       icon: Scale,
       color: "amber",
-      description: "Legal frameworks and case analysis",
+      description: t('law.description'),
       topics: [
-        "Competition Law (LAWS8219)",
-        "Legal Frameworks",
-        "Case Analysis",
-        "University Law Modules",
-        "Legal Research & Writing"
+        t('law.topic1'),
+        t('law.topic2'),
+        t('law.topic3'),
+        t('law.topic4'),
+        t('law.topic5')
       ]
     },
     {
-      title: "Oxbridge Prep",
+      title: t('oxbridge.title'),
       icon: GraduationCap,
       color: "rose",
-      description: "Specialized coaching for Cambridge & Oxford admissions",
+      description: t('oxbridge.description'),
       topics: [
-        "Cambridge Interview Preparation",
-        "Oxford Interview Preparation",
-        "Personal Statement Review",
-        "Mock Interviews",
-        "Application Strategy",
-        "Subject-specific Preparation"
+        t('oxbridge.topic1'),
+        t('oxbridge.topic2'),
+        t('oxbridge.topic3'),
+        t('oxbridge.topic4'),
+        t('oxbridge.topic5'),
+        t('oxbridge.topic6')
       ]
     }
   ]
@@ -110,12 +115,12 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-blue-600 text-white border-0">Tutoring Services</Badge>
+          <Badge className="mb-4 bg-blue-600 text-white border-0">{t('hero.badge')}</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            Expert Academic Support Across Multiple Disciplines
+            {t('hero.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Personalized tutoring from A-Level to university and professional qualifications, backed by Cambridge education and real-world finance experience.
+            {t('hero.subtitle')}
           </p>
         </div>
       </section>
@@ -228,20 +233,20 @@ export default function ServicesPage() {
       <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Get Started?
+            {t('cta.title')}
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Book a session or get in touch to discuss your learning needs
+            {t('cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
               <Button size="lg" className="font-semibold bg-white text-blue-600 hover:bg-blue-50">
-                Book a Session
+                {t('cta.bookNow')}
               </Button>
             </Link>
             <Link href="/contact">
               <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-blue-700">
-                Contact Me
+                {t('cta.contactUs')}
               </Button>
             </Link>
           </div>

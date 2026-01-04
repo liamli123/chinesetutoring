@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
+import { useTranslations } from "next-intl"
 import { useSession, signOut } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,17 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { LanguageSwitcher } from "./language-switcher"
 import { Menu, X, User, LogOut, LayoutDashboard, Settings } from "lucide-react"
 
 export function Navbar() {
+  const t = useTranslations('nav')
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: t('home') },
+    { href: "/services", label: t('services') },
+    { href: "/about", label: t('about') },
+    { href: "/contact", label: t('contact') },
   ]
 
   return (
@@ -50,6 +53,7 @@ export function Navbar() {
 
           {/* Auth Buttons / User Menu */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -74,7 +78,7 @@ export function Navbar() {
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard" className="cursor-pointer">
                       <LayoutDashboard className="mr-2 h-4 w-4" />
-                      Dashboard
+                      {t('dashboard')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -87,7 +91,7 @@ export function Navbar() {
                     <DropdownMenuItem asChild>
                       <Link href="/admin" className="cursor-pointer">
                         <Settings className="mr-2 h-4 w-4" />
-                        Admin Panel
+                        {t('admin')}
                       </Link>
                     </DropdownMenuItem>
                   )}
@@ -97,17 +101,17 @@ export function Navbar() {
                     onClick={() => signOut({ callbackUrl: "/" })}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
+                    {t('logout')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost">Sign In</Button>
+                  <Button variant="ghost">{t('login')}</Button>
                 </Link>
                 <Link href="/register">
-                  <Button>Get Started</Button>
+                  <Button>{t('register')}</Button>
                 </Link>
               </>
             )}
@@ -139,12 +143,15 @@ export function Navbar() {
               </Link>
             ))}
             <div className="pt-4 border-t space-y-2">
+              <div className="flex justify-center mb-2">
+                <LanguageSwitcher />
+              </div>
               {session ? (
                 <>
                   <Link href="/dashboard" onClick={() => setIsOpen(false)}>
                     <Button variant="outline" className="w-full justify-start">
                       <LayoutDashboard className="mr-2 h-4 w-4" />
-                      Dashboard
+                      {t('dashboard')}
                     </Button>
                   </Link>
                   <Button
@@ -153,16 +160,16 @@ export function Navbar() {
                     onClick={() => signOut({ callbackUrl: "/" })}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
+                    {t('logout')}
                   </Button>
                 </>
               ) : (
                 <>
                   <Link href="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full">Sign In</Button>
+                    <Button variant="outline" className="w-full">{t('login')}</Button>
                   </Link>
                   <Link href="/register" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full">Get Started</Button>
+                    <Button className="w-full">{t('register')}</Button>
                   </Link>
                 </>
               )}

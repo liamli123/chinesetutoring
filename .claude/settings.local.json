@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "WebFetch(domain:www.wix.com)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd smooth modern interactions inspired by tech templates\n\nDesign Enhancements:\n- Add smooth CSS animations (fadeInUp, float, gradient-shift)\n- Implement card-hover effects with lift and shadow transitions\n- Add animated background blobs in hero and CTA sections\n- Gradient text effects on headings\n- Enhanced button styles with scale and shadow on hover\n- Smooth icon color transitions on card hover\n\nInteractive Elements:\n- Subject cards now lift and change icon colors on hover\n- All buttons have scale, shadow, and smooth transitions\n- Testimonial cards with hover effects\n- Animated stars on testimonial ratings\n- Smooth scrolling and custom scrollbar styling\n\nHomepage Updates:\n- Hero section with animated gradient background\n- Enhanced CTA buttons with shadow and scale effects\n- Subject cards with group hover states\n- Improved spacing and visual hierarchy\n\nServices Page Updates:\n- Matching card hover effects for all subjects\n- Icon background color transitions\n- Consistent smooth animations throughout\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(git pull origin main)",
+      "Bash(npm install next-intl)",
+      "Bash(git add .)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

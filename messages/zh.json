@@ -1,0 +1,253 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于",
+    "services": "服务",
+    "book": "预约",
+    "contact": "联系",
+    "dashboard": "仪表板",
+    "admin": "管理",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出"
+  },
+  "home": {
+    "hero": {
+      "badge": "学术卓越",
+      "title": "专业学术辅导",
+      "titleHighlight": "金融、数学及更多",
+      "subtitle": "剑桥大学毕业的导师，拥有专业金融资格，提供数学、经济学、金融、统计学和法律的个性化教学。",
+      "bookSession": "预约课程",
+      "aboutLiam": "关于Liam",
+      "cambridgeGrad": "剑桥大学毕业",
+      "acaCfa": "ACA & CFA资格",
+      "bilingual": "双语 (英语/普通话)"
+    },
+    "credentials": {
+      "cambridge": "剑桥",
+      "university": "大学",
+      "acaCfa": "ACA & CFA",
+      "qualified": "资格认证",
+      "experience": "巴克莱 & 德勤",
+      "experienceSub": "工作经验",
+      "students": "学生",
+      "studentsSub": "已辅导"
+    },
+    "subjects": {
+      "badge": "学科领域",
+      "title": "全面的学术支持",
+      "subtitle": "从A-Level到大学和专业资格，在多个学科获得专家指导。",
+      "viewAll": "查看所有服务",
+      "mathematics": {
+        "title": "数学",
+        "description": "从基础到高级课题",
+        "topic1": "工程数学",
+        "topic2": "复分析与洛朗级数",
+        "topic3": "IB和A-Level数学",
+        "topic4": "精算数学"
+      },
+      "economics": {
+        "title": "经济学",
+        "description": "宏观、微观和应用经济学",
+        "topic1": "剑桥面试准备",
+        "topic2": "A-Level和IB经济学",
+        "topic3": "经济理论",
+        "topic4": "应用经济学"
+      },
+      "finance": {
+        "title": "金融",
+        "description": "从公司金融到投资",
+        "topic1": "金融建模与分析",
+        "topic2": "投资分析",
+        "topic3": "公司金融",
+        "topic4": "投资组合优化"
+      },
+      "statistics": {
+        "title": "统计学",
+        "description": "数据分析和统计方法",
+        "topic1": "高级统计方法",
+        "topic2": "R和Python数据分析",
+        "topic3": "统计计算",
+        "topic4": "概率论"
+      },
+      "law": {
+        "title": "法律",
+        "description": "法律框架和案例分析",
+        "topic1": "竞争法",
+        "topic2": "法律框架",
+        "topic3": "案例分析",
+        "topic4": "大学法律课程"
+      },
+      "oxbridge": {
+        "title": "牛剑预科",
+        "description": "专业的入学辅导",
+        "topic1": "剑桥面试准备",
+        "topic2": "个人陈述审核",
+        "topic3": "模拟面试",
+        "topic4": "申请策略"
+      }
+    },
+    "expertise": {
+      "badge": "专业水平",
+      "title": "跨学科精通",
+      "subtitle": "多年的学术和专业经验转化为专家级知识",
+      "financialMath": "金融数学",
+      "corporateFinance": "公司金融",
+      "economicsTheory": "经济理论",
+      "statisticalAnalysis": "统计分析",
+      "legalFrameworks": "法律框架",
+      "oxbridgePrep": "牛剑面试准备",
+      "provenTrack": "经过验证的成功记录",
+      "provenTrackSub": "剑桥标准 + 专业经验",
+      "learnMore": "了解更多关于我的背景"
+    },
+    "whyChoose": {
+      "badge": "为什么选择Liam",
+      "title": "精英教育与实战经验的结合",
+      "subtitle": "结合剑桥学术严谨性与专业金融专业知识和真正的教学热情。",
+      "credentials": {
+        "title": "精英资历",
+        "description": "剑桥大学毕业，拥有ACA和CFA资格，并在巴克莱资本和德勤拥有专业经验。"
+      },
+      "understanding": {
+        "title": "深刻的概念理解",
+        "description": "专注于真正的理解而非死记硬背，将实际应用与理论知识相结合。"
+      },
+      "crossCultural": {
+        "title": "跨文化专业知识",
+        "description": "双语能力，拥有中国、英国和澳大利亚的经验。理解不同的学习方法和文化背景。"
+      },
+      "flexible": {
+        "title": "灵活与个性化",
+        "description": "根据您的个人需求、目标和学习风格量身定制的学习材料和方法。"
+      },
+      "areasTitle": "专业领域",
+      "mathematics": "数学",
+      "economics": "经济学",
+      "finance": "金融",
+      "statistics": "统计学",
+      "law": "法律",
+      "oxbridge": "牛剑预科"
+    },
+    "testimonials": {
+      "badge": "学生成功",
+      "title": "学生评价",
+      "student1": {
+        "name": "James W.",
+        "role": "大学经济学学生",
+        "content": "Liam的剑桥面试准备非常宝贵。他对经济学的深刻理解和解释复杂概念的能力产生了巨大的影响。我拿到了录取通知！"
+      },
+      "student2": {
+        "name": "Sarah L.",
+        "role": "IB数学学生",
+        "content": "终于找到了能够以易懂的方式解释洛朗级数的人！Liam耐心的方法和实际例子彻底改变了我的理解。"
+      },
+      "student3": {
+        "name": "Chen M.",
+        "role": "金融专业人士",
+        "content": "在Liam的指导下准备CFA非常出色。他在巴克莱和德勤的经验带来了教科书中找不到的实用见解。"
+      }
+    },
+    "cta": {
+      "title": "准备好在学习中取得卓越成绩了吗？",
+      "subtitle": "从拥有实战经验的剑桥教育导师那里获得专家指导。无论您是准备考试、大学面试还是专业资格。",
+      "bookSession": "预约课程",
+      "getInTouch": "联系我们"
+    }
+  },
+  "services": {
+    "hero": {
+      "badge": "我们的服务",
+      "title": "全面的学术辅导",
+      "subtitle": "从A-Level到专业资格，跨多个学科的专家教学"
+    },
+    "mathematics": {
+      "title": "数学",
+      "description": "从基础到高级大学水平课题",
+      "topic1": "工程数学（MTH101及高级）",
+      "topic2": "复分析与洛朗级数",
+      "topic3": "序列和级数（IB课程）",
+      "topic4": "贝塞尔函数和拉普拉斯变换",
+      "topic5": "精算数学",
+      "topic6": "投资组合优化与定量方法",
+      "topic7": "A-Level和IB数学"
+    },
+    "economics": {
+      "title": "经济学",
+      "description": "各级别的理论和应用经济学",
+      "topic1": "剑桥经济学面试准备",
+      "topic2": "微观经济学与宏观经济学",
+      "topic3": "A-Level和IB经济学",
+      "topic4": "经济理论",
+      "topic5": "应用经济学",
+      "topic6": "发展经济学"
+    },
+    "finance": {
+      "title": "金融",
+      "description": "公司金融、投资和金融建模",
+      "topic1": "金融建模与分析",
+      "topic2": "投资分析",
+      "topic3": "公司金融",
+      "topic4": "投资组合优化",
+      "topic5": "高级Excel金融应用",
+      "topic6": "CFA考试准备"
+    },
+    "statistics": {
+      "title": "统计学",
+      "description": "统计方法和数据分析",
+      "topic1": "高级统计方法",
+      "topic2": "R语言数据分析编程",
+      "topic3": "Python统计计算",
+      "topic4": "概率论",
+      "topic5": "统计推断",
+      "topic6": "数据可视化"
+    },
+    "law": {
+      "title": "法律",
+      "description": "法律框架和案例分析",
+      "topic1": "竞争法（LAWS8219）",
+      "topic2": "法律框架",
+      "topic3": "案例分析",
+      "topic4": "大学法律课程",
+      "topic5": "法律研究与写作"
+    },
+    "oxbridge": {
+      "title": "牛剑预科",
+      "description": "剑桥和牛津入学的专业辅导",
+      "topic1": "剑桥面试准备",
+      "topic2": "牛津面试准备",
+      "topic3": "个人陈述审核",
+      "topic4": "模拟面试",
+      "topic5": "申请策略",
+      "topic6": "学科专项准备"
+    },
+    "cta": {
+      "title": "准备好开始了吗？",
+      "subtitle": "预约课程或联系我们讨论您的学习目标",
+      "bookNow": "立即预约",
+      "contactUs": "联系我们"
+    }
+  },
+  "footer": {
+    "tagline": "专业学术辅导",
+    "description": "剑桥大学教育导师，拥有ACA和CFA资格。专注于数学、经济学、金融、统计学、法律和牛剑预科。",
+    "quickLinks": "快速链接",
+    "subjects": "学科",
+    "contact": "联系方式",
+    "email": "邮箱",
+    "phone": "电话",
+    "location": "位置",
+    "rights": "保留所有权利。",
+    "mathematics": "数学",
+    "economics": "经济学",
+    "finance": "金融",
+    "statistics": "统计学",
+    "law": "法律",
+    "oxbridgePrep": "牛剑预科"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功"
+  }
+}

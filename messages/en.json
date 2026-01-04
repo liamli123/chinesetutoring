@@ -1,0 +1,253 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "book": "Book",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero": {
+      "badge": "Academic Excellence",
+      "title": "Expert Academic Tutoring in",
+      "titleHighlight": "Finance, Maths & More",
+      "subtitle": "Cambridge-educated tutor with professional finance credentials offering personalized instruction across mathematics, economics, finance, statistics, and law.",
+      "bookSession": "Book a Session",
+      "aboutLiam": "About Liam",
+      "cambridgeGrad": "Cambridge Graduate",
+      "acaCfa": "ACA & CFA Qualified",
+      "bilingual": "Bilingual (English/Mandarin)"
+    },
+    "credentials": {
+      "cambridge": "Cambridge",
+      "university": "University",
+      "acaCfa": "ACA & CFA",
+      "qualified": "Qualified",
+      "experience": "Barclays & Deloitte",
+      "experienceSub": "Experience",
+      "students": "Students",
+      "studentsSub": "Tutored"
+    },
+    "subjects": {
+      "badge": "Subject Areas",
+      "title": "Comprehensive Academic Support",
+      "subtitle": "From A-Level to university and professional qualifications, get expert guidance across multiple disciplines.",
+      "viewAll": "View All Services",
+      "mathematics": {
+        "title": "Mathematics",
+        "description": "From basics to advanced topics",
+        "topic1": "Engineering Mathematics",
+        "topic2": "Complex Analysis & Laurent Series",
+        "topic3": "IB & A-Level Mathematics",
+        "topic4": "Actuarial Mathematics"
+      },
+      "economics": {
+        "title": "Economics",
+        "description": "Macro, micro, and applied economics",
+        "topic1": "Cambridge Interview Prep",
+        "topic2": "A-Level & IB Economics",
+        "topic3": "Economic Theory",
+        "topic4": "Applied Economics"
+      },
+      "finance": {
+        "title": "Finance",
+        "description": "Corporate finance to investments",
+        "topic1": "Financial Modeling & Analysis",
+        "topic2": "Investment Analysis",
+        "topic3": "Corporate Finance",
+        "topic4": "Portfolio Optimization"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "Data analysis and statistical methods",
+        "topic1": "Advanced Statistical Methods",
+        "topic2": "R and Python for Data Analysis",
+        "topic3": "Statistical Computing",
+        "topic4": "Probability Theory"
+      },
+      "law": {
+        "title": "Law",
+        "description": "Legal frameworks and case analysis",
+        "topic1": "Competition Law",
+        "topic2": "Legal Frameworks",
+        "topic3": "Case Analysis",
+        "topic4": "University Law Modules"
+      },
+      "oxbridge": {
+        "title": "Oxbridge Prep",
+        "description": "Specialized admissions coaching",
+        "topic1": "Cambridge Interview Preparation",
+        "topic2": "Personal Statement Review",
+        "topic3": "Mock Interviews",
+        "topic4": "Application Strategy"
+      }
+    },
+    "expertise": {
+      "badge": "Expertise Levels",
+      "title": "Proficiency Across Disciplines",
+      "subtitle": "Years of academic and professional experience translated into expert-level knowledge",
+      "financialMath": "Financial Mathematics",
+      "corporateFinance": "Corporate Finance",
+      "economicsTheory": "Economics Theory",
+      "statisticalAnalysis": "Statistical Analysis",
+      "legalFrameworks": "Legal Frameworks",
+      "oxbridgePrep": "Oxbridge Interview Prep",
+      "provenTrack": "Proven Track Record",
+      "provenTrackSub": "Cambridge standards + Professional experience",
+      "learnMore": "Learn More About My Background"
+    },
+    "whyChoose": {
+      "badge": "Why Choose Liam",
+      "title": "Elite Education Meets Real-World Experience",
+      "subtitle": "Combining Cambridge academic rigor with professional finance expertise and a genuine passion for teaching.",
+      "credentials": {
+        "title": "Elite Credentials",
+        "description": "Cambridge graduate with ACA and CFA qualifications, plus professional experience at Barclays Capital and Deloitte."
+      },
+      "understanding": {
+        "title": "Deep Conceptual Understanding",
+        "description": "Focus on genuine comprehension over rote learning, integrating real-world applications with theoretical knowledge."
+      },
+      "crossCultural": {
+        "title": "Cross-Cultural Expertise",
+        "description": "Bilingual capability with experience across China, UK, and Australia. Understand different learning approaches and cultural backgrounds."
+      },
+      "flexible": {
+        "title": "Flexible & Personalized",
+        "description": "Tailored learning materials and approaches adapted to your individual needs, goals, and learning style."
+      },
+      "areasTitle": "Areas of Expertise",
+      "mathematics": "Mathematics",
+      "economics": "Economics",
+      "finance": "Finance",
+      "statistics": "Statistics",
+      "law": "Law",
+      "oxbridge": "Oxbridge Prep"
+    },
+    "testimonials": {
+      "badge": "Student Success",
+      "title": "What Students Say",
+      "student1": {
+        "name": "James W.",
+        "role": "University Economics Student",
+        "content": "Liam's Cambridge interview prep was invaluable. His deep understanding of economics and ability to explain complex concepts made all the difference. I got my offer!"
+      },
+      "student2": {
+        "name": "Sarah L.",
+        "role": "IB Mathematics Student",
+        "content": "Finally found someone who could explain Laurent Series in a way that makes sense! Liam's patient approach and real-world examples transformed my understanding."
+      },
+      "student3": {
+        "name": "Chen M.",
+        "role": "Finance Professional",
+        "content": "Preparing for my CFA with Liam's guidance was excellent. His Barclays and Deloitte experience brings practical insights you won't find in textbooks."
+      }
+    },
+    "cta": {
+      "title": "Ready to Excel in Your Studies?",
+      "subtitle": "Get expert guidance from a Cambridge-educated tutor with real-world experience. Whether you're preparing for exams, university interviews, or professional qualifications.",
+      "bookSession": "Book a Session",
+      "getInTouch": "Get in Touch"
+    }
+  },
+  "services": {
+    "hero": {
+      "badge": "Our Services",
+      "title": "Comprehensive Academic Tutoring",
+      "subtitle": "Expert instruction across multiple disciplines, from A-Level to professional qualifications"
+    },
+    "mathematics": {
+      "title": "Mathematics",
+      "description": "From fundamentals to advanced university-level topics",
+      "topic1": "Engineering Mathematics (MTH101 and advanced)",
+      "topic2": "Complex Analysis & Laurent Series",
+      "topic3": "Sequences and Series (IB curriculum)",
+      "topic4": "Bessel Functions and Laplace Transforms",
+      "topic5": "Actuarial Mathematics",
+      "topic6": "Portfolio Optimization & Quantitative Methods",
+      "topic7": "A-Level & IB Mathematics"
+    },
+    "economics": {
+      "title": "Economics",
+      "description": "Theoretical and applied economics at all levels",
+      "topic1": "Cambridge Economics Interview Preparation",
+      "topic2": "Microeconomics & Macroeconomics",
+      "topic3": "A-Level & IB Economics",
+      "topic4": "Economic Theory",
+      "topic5": "Applied Economics",
+      "topic6": "Development Economics"
+    },
+    "finance": {
+      "title": "Finance",
+      "description": "Corporate finance, investments, and financial modeling",
+      "topic1": "Financial Modeling & Analysis",
+      "topic2": "Investment Analysis",
+      "topic3": "Corporate Finance",
+      "topic4": "Portfolio Optimization",
+      "topic5": "Advanced Excel for Finance",
+      "topic6": "CFA Exam Preparation"
+    },
+    "statistics": {
+      "title": "Statistics",
+      "description": "Statistical methods and data analysis",
+      "topic1": "Advanced Statistical Methods",
+      "topic2": "R Programming for Data Analysis",
+      "topic3": "Python for Statistical Computing",
+      "topic4": "Probability Theory",
+      "topic5": "Statistical Inference",
+      "topic6": "Data Visualization"
+    },
+    "law": {
+      "title": "Law",
+      "description": "Legal frameworks and case analysis",
+      "topic1": "Competition Law (LAWS8219)",
+      "topic2": "Legal Frameworks",
+      "topic3": "Case Analysis",
+      "topic4": "University Law Modules",
+      "topic5": "Legal Research & Writing"
+    },
+    "oxbridge": {
+      "title": "Oxbridge Prep",
+      "description": "Specialized coaching for Cambridge & Oxford admissions",
+      "topic1": "Cambridge Interview Preparation",
+      "topic2": "Oxford Interview Preparation",
+      "topic3": "Personal Statement Review",
+      "topic4": "Mock Interviews",
+      "topic5": "Application Strategy",
+      "topic6": "Subject-specific Preparation"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Book a session or get in touch to discuss your learning goals",
+      "bookNow": "Book Now",
+      "contactUs": "Contact Us"
+    }
+  },
+  "footer": {
+    "tagline": "Expert Academic Tutoring",
+    "description": "Cambridge-educated tutor with ACA & CFA qualifications. Specializing in Mathematics, Economics, Finance, Statistics, Law, and Oxbridge preparation.",
+    "quickLinks": "Quick Links",
+    "subjects": "Subjects",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "rights": "All rights reserved.",
+    "mathematics": "Mathematics",
+    "economics": "Economics",
+    "finance": "Finance",
+    "statistics": "Statistics",
+    "law": "Law",
+    "oxbridgePrep": "Oxbridge Prep"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
