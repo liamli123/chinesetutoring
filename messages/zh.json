@@ -228,6 +228,69 @@
       "contactUs": "联系我们"
     }
   },
+  "about": {
+    "hero": {
+      "badge": "关于Liam",
+      "title": "剑桥教育. 金融经验. 全球视野.",
+      "subtitle": "精英学术资历与专业金融专业知识以及对帮助学生取得卓越成绩的真诚热情相结合。"
+    },
+    "background": {
+      "title": "专业背景",
+      "para1": "我是剑桥大学毕业生，拥有杰出的资格认证，包括ACA（特许会计师）和CFA（特许金融分析师）资格，以及国家普通话测试二级甲等证书。",
+      "para2": "我的专业经验涵盖顶级金融机构，包括巴克莱资本和德勤，在那里我发展了定量分析、金融建模和复杂问题解决方法的深厚专业知识。",
+      "para3": "如今，我经营一家专业的海外学术支持服务，提供数学、经济学、金融、统计学和法律的全面辅导。我独特的精英学术培训、专业金融资格和跨文化教学专业知识相结合，使我在竞争激烈的教育支持市场中脱颖而出。"
+    },
+    "credentials": {
+      "title": "学术资历",
+      "cambridge": "剑桥大学毕业",
+      "aca": "ACA（特许会计师）",
+      "cfa": "CFA（特许金融分析师）",
+      "mandarin": "国家普通话测试二级甲等"
+    },
+    "expertise": {
+      "title": "教学专长",
+      "subtitle": "跨多个学科和教育水平的全面学术支持"
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "联系",
+      "title": "联系我们",
+      "subtitle": "有关于辅导的问题吗？想讨论您的学术目标？我很乐意听到您的声音，看看我能如何帮助您。"
+    },
+    "info": {
+      "title": "联系信息",
+      "email": "邮箱",
+      "phone": "电话",
+      "location": "位置",
+      "hours": "营业时间",
+      "hoursValue": "周一至周日，上午9:00 - 下午9:00（英国时间）"
+    },
+    "form": {
+      "title": "发送消息",
+      "subtitle": "填写下面的表格，我会在24小时内回复您",
+      "name": "姓名",
+      "namePlaceholder": "您的全名",
+      "email": "邮箱",
+      "emailPlaceholder": "your@email.com",
+      "subject": "主题",
+      "subjectPlaceholder": "这是关于什么的？",
+      "message": "消息",
+      "messagePlaceholder": "告诉我您的辅导需求...",
+      "send": "发送消息",
+      "sending": "发送中...",
+      "success": "消息发送成功！我会尽快回复您。"
+    },
+    "why": {
+      "title": "为什么联系我？",
+      "consultation": "免费咨询",
+      "consultationDesc": "讨论您的学术目标以及我如何帮助您",
+      "custom": "定制学习计划",
+      "customDesc": "根据您的需求量身定制的个性化方法",
+      "flexible": "灵活的时间安排",
+      "flexibleDesc": "适合您的时区和日程安排的课程"
+    }
+  },
   "footer": {
     "tagline": "专业学术辅导",
     "description": "剑桥大学教育导师，拥有ACA和CFA资格。专注于数学、经济学、金融、统计学、法律和牛剑预科。",

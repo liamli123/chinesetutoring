@@ -1,3 +1,6 @@
+"use client"
+
+import { useTranslations } from "next-intl"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,6 +8,9 @@ import { Badge } from "@/components/ui/badge"
 import { Award, BookOpen, Briefcase, Globe, GraduationCap, Languages, TrendingUp, BarChart3 } from "lucide-react"
 
 export default function AboutPage() {
+  const t = useTranslations('about')
+  const tHome = useTranslations('home.subjects')
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -12,12 +18,12 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-blue-600 text-white border-0">About Liam</Badge>
+          <Badge className="mb-4 bg-blue-600 text-white border-0">{t('hero.badge')}</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            Cambridge Education. Finance Experience. Global Perspective.
+            {t('hero.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Elite academic credentials combined with professional finance expertise and a genuine passion for helping students excel.
+            {t('hero.subtitle')}
           </p>
         </div>
       </section>
@@ -27,27 +33,21 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Professional Background</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('background.title')}</h2>
               <div className="space-y-4 text-gray-600">
-                <p>
-                  I'm a Cambridge University graduate with distinguished qualifications including both ACA (Associate Chartered Accountant) and CFA (Chartered Financial Analyst) designations, as well as National Mandarin Test Level 2 Grade A certification.
-                </p>
-                <p>
-                  My professional experience spans top-tier finance institutions including Barclays Capital and Deloitte, where I developed deep expertise in quantitative analysis, financial modeling, and complex problem-solving methodologies.
-                </p>
-                <p>
-                  Today, I operate a specialized overseas academic support service, providing comprehensive tutoring across mathematics, economics, finance, statistics, and law. My unique combination of elite academic training, professional finance credentials, and cross-cultural teaching expertise sets me apart in the competitive educational support market.
-                </p>
+                <p>{t('background.para1')}</p>
+                <p>{t('background.para2')}</p>
+                <p>{t('background.para3')}</p>
               </div>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Academic Credentials</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('credentials.title')}</h2>
               <div className="space-y-3">
                 {[
-                  { icon: GraduationCap, text: "Cambridge University graduate" },
-                  { icon: Award, text: "ACA (Associate Chartered Accountant)" },
-                  { icon: Award, text: "CFA (Chartered Financial Analyst)" },
-                  { icon: Languages, text: "National Mandarin Test Level 2 Grade A" },
+                  { icon: GraduationCap, text: t('credentials.cambridge') },
+                  { icon: Award, text: t('credentials.aca') },
+                  { icon: Award, text: t('credentials.cfa') },
+                  { icon: Languages, text: t('credentials.mandarin') },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
                     <item.icon className="h-6 w-6 text-blue-600 flex-shrink-0" />
@@ -64,9 +64,9 @@ export default function AboutPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Teaching Expertise</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('expertise.title')}</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive academic support across multiple disciplines and educational levels
+              {t('expertise.subtitle')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

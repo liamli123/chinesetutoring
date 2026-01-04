@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,8 @@ import { Badge } from "@/components/ui/badge"
 import { Mail, Phone, MapPin, Clock, Send, Loader2, CheckCircle } from "lucide-react"
 
 export default function ContactPage() {
+  const t = useTranslations('contact')
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,13 +52,12 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-slate-50 to-blue-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-4 bg-blue-600 text-white border-0">Contact</Badge>
+          <Badge className="mb-4 bg-blue-600 text-white border-0">{t('hero.badge')}</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            Get in Touch
+            {t('hero.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions about tutoring? Want to discuss your academic goals?
-            I&apos;d love to hear from you and see how I can help.
+            {t('hero.subtitle')}
           </p>
         </div>
       </section>
@@ -66,14 +68,14 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('info.title')}</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Email</p>
+                    <p className="font-medium text-gray-900">{t('info.email')}</p>
                     <a href="mailto:contact@liamli.com" className="text-gray-600 hover:text-blue-600">
                       contact@liamli.com
                     </a>
@@ -84,7 +86,7 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Phone</p>
+                    <p className="font-medium text-gray-900">{t('info.phone')}</p>
                     <a href="tel:+1234567890" className="text-gray-600 hover:text-blue-600">
                       +1 (234) 567-890
                     </a>
@@ -95,7 +97,7 @@ export default function ContactPage() {
                     <MapPin className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Location</p>
+                    <p className="font-medium text-gray-900">{t('info.location')}</p>
                     <p className="text-gray-600">Based in China, tutoring worldwide</p>
                   </div>
                 </div>

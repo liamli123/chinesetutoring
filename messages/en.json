@@ -228,6 +228,69 @@
       "contactUs": "Contact Us"
     }
   },
+  "about": {
+    "hero": {
+      "badge": "About Liam",
+      "title": "Cambridge Education. Finance Experience. Global Perspective.",
+      "subtitle": "Elite academic credentials combined with professional finance expertise and a genuine passion for helping students excel."
+    },
+    "background": {
+      "title": "Professional Background",
+      "para1": "I'm a Cambridge University graduate with distinguished qualifications including both ACA (Associate Chartered Accountant) and CFA (Chartered Financial Analyst) designations, as well as National Mandarin Test Level 2 Grade A certification.",
+      "para2": "My professional experience spans top-tier finance institutions including Barclays Capital and Deloitte, where I developed deep expertise in quantitative analysis, financial modeling, and complex problem-solving methodologies.",
+      "para3": "Today, I operate a specialized overseas academic support service, providing comprehensive tutoring across mathematics, economics, finance, statistics, and law. My unique combination of elite academic training, professional finance credentials, and cross-cultural teaching expertise sets me apart in the competitive educational support market."
+    },
+    "credentials": {
+      "title": "Academic Credentials",
+      "cambridge": "Cambridge University graduate",
+      "aca": "ACA (Associate Chartered Accountant)",
+      "cfa": "CFA (Chartered Financial Analyst)",
+      "mandarin": "National Mandarin Test Level 2 Grade A"
+    },
+    "expertise": {
+      "title": "Teaching Expertise",
+      "subtitle": "Comprehensive academic support across multiple disciplines and educational levels"
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Contact",
+      "title": "Get in Touch",
+      "subtitle": "Have questions about tutoring? Want to discuss your academic goals? I'd love to hear from you and see how I can help."
+    },
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "hours": "Hours",
+      "hoursValue": "Monday - Sunday, 9:00 AM - 9:00 PM (UK Time)"
+    },
+    "form": {
+      "title": "Send a Message",
+      "subtitle": "Fill out the form below and I'll get back to you within 24 hours",
+      "name": "Name",
+      "namePlaceholder": "Your full name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your tutoring needs...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! I'll get back to you soon."
+    },
+    "why": {
+      "title": "Why Get in Touch?",
+      "consultation": "Free Consultation",
+      "consultationDesc": "Discuss your academic goals and how I can help",
+      "custom": "Custom Learning Plan",
+      "customDesc": "Personalized approach tailored to your needs",
+      "flexible": "Flexible Scheduling",
+      "flexibleDesc": "Sessions that fit your timezone and schedule"
+    }
+  },
   "footer": {
     "tagline": "Expert Academic Tutoring",
     "description": "Cambridge-educated tutor with ACA & CFA qualifications. Specializing in Mathematics, Economics, Finance, Statistics, Law, and Oxbridge preparation.",
