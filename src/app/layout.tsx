@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import {routing} from '@/i18n/routing';
-import {notFound} from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -12,26 +10,13 @@ export const metadata: Metadata = {
   keywords: ["academic tutoring", "mathematics tutor", "economics tutor", "finance tutor", "Cambridge tutor", "Oxbridge preparation", "A-Level tutoring", "IB tutoring", "university tutoring"],
 }
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({locale}));
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
-  params
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
 }>) {
-  const {locale} = await params;
-
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
-
   return (
-    <html lang={locale}>
+    <html>
       <body className={inter.className}>
         {children}
       </body>
