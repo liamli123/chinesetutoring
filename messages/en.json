@@ -226,6 +226,28 @@
       "subtitle": "Book a session or get in touch to discuss your learning goals",
       "bookNow": "Book Now",
       "contactUs": "Contact Us"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple, flexible, and tailored to your needs",
+      "step1Title": "Get in Touch",
+      "step1Desc": "Contact me with your subject area, current level, and learning goals. We'll discuss your specific needs.",
+      "step2Title": "Customized Plan",
+      "step2Desc": "I'll create a personalized learning plan with materials tailored to your curriculum and examination requirements.",
+      "step3Title": "Start Learning",
+      "step3Desc": "Flexible online sessions at times that suit you, with ongoing support and progress tracking."
+    },
+    "levels": {
+      "title": "Educational Levels Covered",
+      "subtitle": "From secondary school to professional qualifications",
+      "aLevel": "A-Level",
+      "aLevelDesc": "Comprehensive exam preparation",
+      "ib": "IB (International Baccalaureate)",
+      "ibDesc": "All subject levels",
+      "university": "University",
+      "universityDesc": "Undergraduate & postgraduate",
+      "professional": "Professional",
+      "professionalDesc": "ACA, CFA preparation"
     }
   },
   "about": {

@@ -162,8 +162,8 @@ export default function ServicesPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-lg text-gray-600">Simple, flexible, and tailored to your needs</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('howItWorks.title')}</h2>
+            <p className="text-lg text-gray-600">{t('howItWorks.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <Card>
@@ -171,10 +171,8 @@ export default function ServicesPage() {
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                   1
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Get in Touch</h3>
-                <p className="text-gray-600">
-                  Contact me with your subject area, current level, and learning goals. We'll discuss your specific needs.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('howItWorks.step1Title')}</h3>
+                <p className="text-gray-600">{t('howItWorks.step1Desc')}</p>
               </CardContent>
             </Card>
             <Card>
@@ -182,10 +180,8 @@ export default function ServicesPage() {
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                   2
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Customized Plan</h3>
-                <p className="text-gray-600">
-                  I'll create a personalized learning plan with materials tailored to your curriculum and examination requirements.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('howItWorks.step2Title')}</h3>
+                <p className="text-gray-600">{t('howItWorks.step2Desc')}</p>
               </CardContent>
             </Card>
             <Card>
@@ -193,10 +189,8 @@ export default function ServicesPage() {
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                   3
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Start Learning</h3>
-                <p className="text-gray-600">
-                  Flexible online sessions at times that suit you, with ongoing support and progress tracking.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('howItWorks.step3Title')}</h3>
+                <p className="text-gray-600">{t('howItWorks.step3Desc')}</p>
               </CardContent>
             </Card>
           </div>
@@ -207,15 +201,15 @@ export default function ServicesPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Educational Levels Covered</h2>
-            <p className="text-lg text-gray-600">From secondary school to professional qualifications</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('levels.title')}</h2>
+            <p className="text-lg text-gray-600">{t('levels.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "A-Level", description: "Comprehensive exam preparation" },
-              { title: "IB (International Baccalaureate)", description: "All subject levels" },
-              { title: "University", description: "Undergraduate & postgraduate" },
-              { title: "Professional", description: "ACA, CFA preparation" }
+              { title: t('levels.aLevel'), description: t('levels.aLevelDesc') },
+              { title: t('levels.ib'), description: t('levels.ibDesc') },
+              { title: t('levels.university'), description: t('levels.universityDesc') },
+              { title: t('levels.professional'), description: t('levels.professionalDesc') }
             ].map((level, i) => (
               <Card key={i} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="pt-6 pb-6">

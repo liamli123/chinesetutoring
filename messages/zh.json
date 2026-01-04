@@ -226,6 +226,28 @@
       "subtitle": "预约课程或联系我们讨论您的学习目标",
       "bookNow": "立即预约",
       "contactUs": "联系我们"
+    },
+    "howItWorks": {
+      "title": "如何运作",
+      "subtitle": "简单、灵活、量身定制",
+      "step1Title": "联系我",
+      "step1Desc": "告诉我您的学科领域、当前水平和学习目标。我们将讨论您的具体需求。",
+      "step2Title": "定制计划",
+      "step2Desc": "我将根据您的课程和考试要求创建个性化的学习计划和材料。",
+      "step3Title": "开始学习",
+      "step3Desc": "灵活的在线课程，适合您的时间安排，持续的支持和进度跟踪。"
+    },
+    "levels": {
+      "title": "涵盖的教育水平",
+      "subtitle": "从中学到专业资格",
+      "aLevel": "A-Level",
+      "aLevelDesc": "全面的考试准备",
+      "ib": "IB（国际文凭）",
+      "ibDesc": "所有学科水平",
+      "university": "大学",
+      "universityDesc": "本科和研究生",
+      "professional": "专业资格",
+      "professionalDesc": "ACA、CFA准备"
     }
   },
   "about": {
