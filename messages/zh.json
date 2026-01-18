@@ -3,6 +3,8 @@
     "home": "首页",
     "about": "关于",
     "services": "服务",
+    "mathTutor": "数学AI",
+    "mathSolver": "数学求解",
     "book": "预约",
     "contact": "联系",
     "dashboard": "仪表板",
@@ -45,6 +47,22 @@
         "topic2": "复分析与洛朗级数",
         "topic3": "IB和A-Level数学",
         "topic4": "精算数学"
+      },
+      "signalSystems": {
+        "title": "信号与系统",
+        "description": "信号处理基础",
+        "topic1": "傅里叶级数与变换",
+        "topic2": "拉普拉斯变换",
+        "topic3": "Z变换",
+        "topic4": "线性时不变系统"
+      },
+      "electronics": {
+        "title": "电子工程",
+        "description": "电路分析与设计",
+        "topic1": "电路分析",
+        "topic2": "模拟电子学",
+        "topic3": "数字逻辑设计",
+        "topic4": "半导体器件"
       },
       "economics": {
         "title": "经济学",
@@ -171,6 +189,26 @@
       "topic5": "精算数学",
       "topic6": "投资组合优化与定量方法",
       "topic7": "A-Level和IB数学"
+    },
+    "signalSystems": {
+      "title": "信号与系统",
+      "description": "信号处理和系统分析基础",
+      "topic1": "连续时间和离散时间信号",
+      "topic2": "傅里叶级数和傅里叶变换",
+      "topic3": "拉普拉斯变换及应用",
+      "topic4": "Z变换和数字信号",
+      "topic5": "线性时不变系统",
+      "topic6": "频率响应和滤波"
+    },
+    "electronics": {
+      "title": "电子工程",
+      "description": "电路分析和电子系统",
+      "topic1": "电路分析（直流和交流）",
+      "topic2": "模拟电子学",
+      "topic3": "数字电子学和逻辑设计",
+      "topic4": "半导体器件",
+      "topic5": "运算放大器",
+      "topic6": "电力电子学"
     },
     "economics": {
       "title": "经济学",
@@ -334,5 +372,57 @@
     "loading": "加载中...",
     "error": "错误",
     "success": "成功"
+  },
+  "mathTutor": {
+    "hero": {
+      "badge": "AI数学求解器",
+      "title": "AI数学导师",
+      "subtitle": "使用先进的AI技术即时获得数学问题帮助。上传图片、PDF或直接输入您的问题。",
+      "feature1": "分步解答",
+      "feature2": "快速响应",
+      "feature3": "高准确率"
+    },
+    "apiKeyWarning": "注意：此功能需要在服务器环境中配置有效的DeepSeek API密钥。",
+    "regular": {
+      "title": "V3.2 常规版",
+      "badge": "快速模式 - 准确率 (70-85%)",
+      "placeholder": "提出任何数学问题，上传图片或分享PDF..."
+    },
+    "speciale": {
+      "title": "V3.2-特别版",
+      "badge": "最高准确率 (96%) - 较慢",
+      "placeholder": "在此输入您的数学问题以获得最高准确率...",
+      "textOnly": "此模式仅接受文本输入以确保最高准确率。"
+    },
+    "loading": {
+      "regular": "正在解答您的问题...",
+      "speciale": "深度思考中..."
+    },
+    "inputPlaceholder": "在此输入您的数学问题...",
+    "thinkingMode": "思考模式",
+    "clearChat": "清除聊天",
+    "reasoning": "显示推理过程",
+    "tokens": "令牌数",
+    "copy": "复制",
+    "copied": "已复制！",
+    "error": "错误",
+    "imageSent": "[已上传图片]",
+    "pdfSent": "[已上传PDF]",
+    "dropZone": "拖放图片或PDF到此处，或点击选择",
+    "supportedFormats": "支持格式：JPG、PNG、GIF、WebP、PDF",
+    "invalidFileType": "无效的文件类型。请上传图片或PDF。",
+    "fileProcessError": "处理文件时出错。请重试。",
+    "processing": "处理中...",
+    "pdfExtracted": "已提取PDF文本",
+    "newChat": "新对话",
+    "tips": {
+      "title": "获得最佳结果的技巧",
+      "tip1Title": "具体明确：",
+      "tip1": "在问题中包含所有相关信息和背景。",
+      "tip2Title": "常规版适用于：",
+      "tip2": "快速作业帮助、图片问题和一般数学问题。",
+      "tip3Title": "特别版适用于：",
+      "tip3": "需要最高准确率的复杂问题、竞赛数学和证明验证。"
+    }
   }
 }

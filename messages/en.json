@@ -3,6 +3,8 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
+    "mathTutor": "Math Tutor",
+    "mathSolver": "Math Solver",
     "book": "Book",
     "contact": "Contact",
     "dashboard": "Dashboard",
@@ -45,6 +47,22 @@
         "topic2": "Complex Analysis & Laurent Series",
         "topic3": "IB & A-Level Mathematics",
         "topic4": "Actuarial Mathematics"
+      },
+      "signalSystems": {
+        "title": "Signals & Systems",
+        "description": "Signal processing fundamentals",
+        "topic1": "Fourier Series & Transform",
+        "topic2": "Laplace Transform",
+        "topic3": "Z-Transform",
+        "topic4": "LTI Systems"
+      },
+      "electronics": {
+        "title": "Electronic Engineering",
+        "description": "Circuit analysis and design",
+        "topic1": "Circuit Analysis",
+        "topic2": "Analog Electronics",
+        "topic3": "Digital Logic Design",
+        "topic4": "Semiconductor Devices"
       },
       "economics": {
         "title": "Economics",
@@ -171,6 +189,26 @@
       "topic5": "Actuarial Mathematics",
       "topic6": "Portfolio Optimization & Quantitative Methods",
       "topic7": "A-Level & IB Mathematics"
+    },
+    "signalSystems": {
+      "title": "Signals & Systems",
+      "description": "Signal processing and system analysis fundamentals",
+      "topic1": "Continuous and Discrete-Time Signals",
+      "topic2": "Fourier Series and Fourier Transform",
+      "topic3": "Laplace Transform and Applications",
+      "topic4": "Z-Transform and Digital Signals",
+      "topic5": "Linear Time-Invariant Systems",
+      "topic6": "Frequency Response and Filtering"
+    },
+    "electronics": {
+      "title": "Electronic Engineering",
+      "description": "Circuit analysis and electronic systems",
+      "topic1": "Circuit Analysis (DC and AC)",
+      "topic2": "Analog Electronics",
+      "topic3": "Digital Electronics and Logic Design",
+      "topic4": "Semiconductor Devices",
+      "topic5": "Operational Amplifiers",
+      "topic6": "Power Electronics"
     },
     "economics": {
       "title": "Economics",
@@ -334,5 +372,57 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success"
+  },
+  "mathTutor": {
+    "hero": {
+      "badge": "AI Math Solver",
+      "title": "AI Math Tutor",
+      "subtitle": "Get instant help with math problems using advanced AI. Upload images, PDFs, or type your questions directly.",
+      "feature1": "Step-by-step solutions",
+      "feature2": "Fast responses",
+      "feature3": "High accuracy"
+    },
+    "apiKeyWarning": "Note: This feature requires a valid DeepSeek API key configured in the server environment.",
+    "regular": {
+      "title": "V3.2 Regular",
+      "badge": "Fast Mode - Good Accuracy (70-85%)",
+      "placeholder": "Ask any math question, upload an image, or share a PDF..."
+    },
+    "speciale": {
+      "title": "V3.2-Speciale",
+      "badge": "Best Accuracy (96%) - Slower",
+      "placeholder": "Type your math question here for the highest accuracy...",
+      "textOnly": "This mode only accepts text input for maximum accuracy."
+    },
+    "loading": {
+      "regular": "Solving your problem...",
+      "speciale": "Deep thinking in progress..."
+    },
+    "inputPlaceholder": "Type your math question here...",
+    "thinkingMode": "Thinking Mode",
+    "clearChat": "Clear chat",
+    "reasoning": "Show reasoning",
+    "tokens": "Tokens",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "error": "Error",
+    "imageSent": "[Image uploaded]",
+    "pdfSent": "[PDF uploaded]",
+    "dropZone": "Drag & drop an image or PDF here, or click to select",
+    "supportedFormats": "Supports: JPG, PNG, GIF, WebP, PDF",
+    "invalidFileType": "Invalid file type. Please upload an image or PDF.",
+    "fileProcessError": "Error processing file. Please try again.",
+    "processing": "Processing...",
+    "pdfExtracted": "PDF text extracted",
+    "newChat": "New Chat",
+    "tips": {
+      "title": "Tips for Best Results",
+      "tip1Title": "Be specific:",
+      "tip1": "Include all relevant information and context in your question.",
+      "tip2Title": "Use Regular for:",
+      "tip2": "Quick homework help, image-based problems, and general math questions.",
+      "tip3Title": "Use Speciale for:",
+      "tip3": "Complex problems requiring highest accuracy, competition math, and proof verification."
+    }
   }
 }
