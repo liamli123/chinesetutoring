@@ -45,9 +45,25 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // Enhanced system prompt for thinking mode
+    const systemPrompt = thinkingMode
+      ? `You are an expert mathematician and tutor. Solve problems with detailed step-by-step reasoning.
+
+Guidelines:
+1. Think through the problem carefully before solving
+2. Show ALL your working and reasoning steps
+3. Use proper mathematical notation with LaTeX (use $...$ for inline math, $$...$$ for display math)
+4. Explain WHY you're doing each step
+5. Double-check your calculations
+6. Clearly state your final answer using \\boxed{} notation (e.g., \\boxed{42})
+7. If analyzing an image, describe what you see first
+
+Remember: Show your complete thought process.`
+      : MATH_TUTOR_SYSTEM_PROMPT;
+
     // Build messages array
     const messages: ChatMessage[] = [
-      { role: 'system', content: MATH_TUTOR_SYSTEM_PROMPT },
+      { role: 'system', content: systemPrompt },
       ...history,
       { role: 'user', content: contentParts.length === 1 && contentParts[0].type === 'text'
         ? contentParts[0].text!
@@ -55,11 +71,9 @@ export async function POST(request: NextRequest) {
       },
     ];
 
-    // Choose model based on thinking mode
-    const model = thinkingMode ? 'deepseek-reasoner' : 'deepseek-chat';
-
+    // Use deepseek-chat for reliable responses
     const completion = await getRegularClient().chat.completions.create({
-      model,
+      model: 'deepseek-chat',
       messages: messages as never[],
       max_tokens: 4096,
     });
@@ -74,24 +88,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Extract content and reasoning_content (for deepseek-reasoner)
-    const messageAny = responseMessage as unknown as Record<string, unknown>;
-    let reasoning: string | undefined;
-    let solution = ((responseMessage.content || '') as string).trim();
-
-    // For deepseek-reasoner (thinking mode), extract reasoning_content
-    if (thinkingMode) {
-      const reasoningContent = messageAny.reasoning_content as string | undefined;
-
-      // If solution exists, reasoning is separate (show both)
-      // If solution is empty, use reasoning as solution (don't show reasoning separately)
-      if (solution && reasoningContent) {
-        reasoning = reasoningContent;
-      } else if (!solution && reasoningContent) {
-        solution = reasoningContent;
-        reasoning = undefined;
-      }
-    }
+    const solution = ((responseMessage.content || '') as string).trim();
 
     const cost = calculateCost({
       prompt_tokens: usage.prompt_tokens,
@@ -100,7 +97,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       solution,
-      reasoning,
       tokens: {
         input: usage.prompt_tokens,
         output: usage.completion_tokens,

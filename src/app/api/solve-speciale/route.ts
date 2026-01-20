@@ -20,18 +20,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Enhanced system prompt for Speciale mode - more detailed and accurate
+    const specialeSystemPrompt = `You are an expert mathematician and tutor. Solve the following problem with extreme precision and accuracy.
+
+Guidelines:
+1. Show your complete step-by-step working
+2. Use proper mathematical notation with LaTeX (use $...$ for inline math, $$...$$ for display math)
+3. Double-check your calculations
+4. Clearly state your final answer using \\boxed{} notation (e.g., \\boxed{42})
+5. If there are multiple approaches, use the most rigorous one
+6. Explain your reasoning at each step
+
+Remember: Accuracy is paramount. Take your time to ensure correctness.`;
+
     // Build messages array
     const messages: ChatMessage[] = [
-      { role: 'system', content: MATH_TUTOR_SYSTEM_PROMPT },
+      { role: 'system', content: specialeSystemPrompt },
       ...history,
       { role: 'user', content: message },
     ];
 
-    // Use deepseek-reasoner for highest accuracy (Speciale mode)
+    // Use deepseek-chat for reliable responses
     const completion = await getSpecialeClient().chat.completions.create({
-      model: 'deepseek-reasoner',
+      model: 'deepseek-chat',
       messages: messages as never[],
       max_tokens: 4096,
+      temperature: 0.1, // Low temperature for more accurate/deterministic responses
     });
 
     const responseMessage = completion.choices[0]?.message;
@@ -44,23 +58,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For deepseek-reasoner, extract both content and reasoning_content
-    // The reasoning is in reasoning_content, the final answer is in content
-    const messageAny = responseMessage as unknown as Record<string, unknown>;
-    const reasoningContent = messageAny.reasoning_content as string | undefined;
-    let solution = ((responseMessage.content || '') as string).trim();
-    let reasoning: string | undefined;
-
-    // If solution exists, reasoning is separate (show both)
-    // If solution is empty, use reasoning as solution (don't show reasoning separately)
-    if (solution && reasoningContent) {
-      // Both exist - show solution as main content, reasoning in expandable section
-      reasoning = reasoningContent;
-    } else if (!solution && reasoningContent) {
-      // Only reasoning exists - use it as the solution, don't duplicate in reasoning section
-      solution = reasoningContent;
-      reasoning = undefined;
-    }
+    const solution = ((responseMessage.content || '') as string).trim();
 
     const cost = calculateCost({
       prompt_tokens: usage.prompt_tokens,
@@ -69,7 +67,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       solution,
-      reasoning,
       tokens: {
         input: usage.prompt_tokens,
         output: usage.completion_tokens,
