@@ -44,13 +44,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // For deepseek-reasoner, extract both content and reasoning_content
+    // The reasoning is in reasoning_content, the final answer is in content
+    const messageAny = responseMessage as Record<string, unknown>;
+    const reasoning = messageAny.reasoning_content as string | undefined;
+    let solution = (responseMessage.content || '') as string;
+
+    // If content is empty but we have reasoning, use that as the solution
+    if (!solution && reasoning) {
+      solution = reasoning;
+    }
+
     const cost = calculateCost({
       prompt_tokens: usage.prompt_tokens,
       completion_tokens: usage.completion_tokens,
     });
 
     return NextResponse.json({
-      solution: responseMessage.content || '',
+      solution,
+      reasoning,
       tokens: {
         input: usage.prompt_tokens,
         output: usage.completion_tokens,
