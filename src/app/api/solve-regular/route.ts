@@ -45,23 +45,37 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // System prompt - concise and user-friendly
+    // System prompt - clean output for students
     const systemPrompt = thinkingMode
-      ? `You are a math tutor. Solve problems with clear step-by-step explanations.
+      ? `You are a math tutor. Give clear, educational solutions.
 
-Format:
-1. Briefly state what we're solving
-2. Show solution steps (numbered)
-3. Give final answer in \\boxed{} format
+IMPORTANT FORMATTING RULES:
+- Do NOT use markdown (no **, no ##, no bullet points)
+- Write in plain text with numbered steps
+- Use LaTeX ONLY for math: $x^2$ for inline, $$equation$$ for display
+- End with: Final Answer: \\boxed{answer}
 
-Use LaTeX: $...$ inline, $$...$$ for equations.
-For images: describe the problem, then solve it.
-Be thorough but concise - explain key steps, skip trivial arithmetic.`
-      : `You are a helpful math tutor. Solve problems clearly.
+For images: First state what the problem is, then solve it.
 
-Format: Show steps briefly, then \\boxed{final answer}.
-Use LaTeX for math notation.
-Be concise and helpful.`;
+Example:
+Step 1: Identify what we need to find
+We need to solve for $x$ in the equation.
+
+Step 2: Rearrange the equation
+$$2x + 5 = 15$$
+$$2x = 10$$
+
+Step 3: Solve for x
+$$x = 5$$
+
+Final Answer: \\boxed{5}`
+      : `You are a math tutor. Give clear solutions.
+
+RULES:
+- No markdown (no **, ##, bullets)
+- Plain text with numbered steps
+- LaTeX for math only: $inline$ or $$display$$
+- End with: Final Answer: \\boxed{answer}`;
 
     // Build messages array
     const messages: ChatMessage[] = [
