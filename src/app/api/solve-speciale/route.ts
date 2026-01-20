@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     // For deepseek-reasoner, extract both content and reasoning_content
     // The reasoning is in reasoning_content, the final answer is in content
-    const messageAny = responseMessage as Record<string, unknown>;
+    const messageAny = responseMessage as unknown as Record<string, unknown>;
     const reasoning = messageAny.reasoning_content as string | undefined;
     let solution = (responseMessage.content || '') as string;
 
