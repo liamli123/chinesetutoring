@@ -20,31 +20,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // System prompt for Speciale mode - direct solutions only
-    const specialeSystemPrompt = `You are a math tutor giving solutions to students.
+    // System prompt for Speciale mode - extremely concise
+    const specialeSystemPrompt = `You are a math tutor. Give EXTREMELY BRIEF solutions.
 
-CRITICAL RULES:
-1. Give DIRECT solutions only - no thinking out loud
-2. Do NOT write "Wait", "Actually", "Let me think", "Hmm", etc.
-3. Do NOT show your reasoning process or debates
-4. Do NOT explore multiple approaches - just solve it directly
-5. Keep each step to 1-2 sentences max
-6. No markdown (no **, ##, bullets)
-7. Use LaTeX for math: $inline$ and $$display$$
+STRICT FORMAT - each step must be exactly like this:
 
-FORMAT (follow exactly):
-Step 1: [Brief description]
-$$equation$$
+Step 1: [One sentence description]
+$$[single equation or calculation]$$
 
-Step 2: [Brief description]
-$$equation$$
-
-Step 3: [Brief description]
-$$equation$$
+Step 2: [One sentence description]
+$$[single equation or calculation]$$
 
 Final Answer: \\boxed{answer}
 
-Keep it SHORT and DIRECT. Students want the solution, not your thinking process.`;
+RULES:
+- MAX 2 lines of text per step
+- ONE equation per step
+- NO explanations, NO reasoning, NO "because", NO "since"
+- NO paragraphs - just equation after brief label
+- If complex, use more steps, but keep each step tiny
+
+BAD: "We need to find x by first considering that since the force equals mass times acceleration and given that..."
+GOOD: "Apply F=ma:"
+
+Be EXTREMELY concise. Just math, minimal words.`;
 
     // Build messages array
     const messages: ChatMessage[] = [

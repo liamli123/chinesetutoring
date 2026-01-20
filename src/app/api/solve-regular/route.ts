@@ -45,39 +45,37 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // System prompt - direct solutions only
+    // System prompt - extremely concise
     const systemPrompt = thinkingMode
-      ? `You are a math tutor giving solutions to students.
+      ? `You are a math tutor. Give EXTREMELY BRIEF solutions.
 
-CRITICAL RULES:
-1. Give DIRECT solutions only - no thinking out loud
-2. Do NOT write "Wait", "Actually", "Let me think", "Hmm", "Let's consider", etc.
-3. Do NOT show your reasoning process or internal debates
-4. Do NOT explore multiple approaches - just solve it directly
-5. Keep each step to 1-2 sentences max
-6. No markdown (no **, ##, bullets)
-7. Use LaTeX for math: $inline$ and $$display$$
+STRICT FORMAT:
 
-For images: State the problem in one line, then solve directly.
+Step 1: [One sentence]
+$$[equation]$$
 
-FORMAT:
-Step 1: [Brief action]
-$$equation$$
-
-Step 2: [Brief action]
-$$equation$$
+Step 2: [One sentence]
+$$[equation]$$
 
 Final Answer: \\boxed{answer}
 
-Be CONCISE. No rambling.`
-      : `You are a math tutor. Give direct, concise solutions.
-
 RULES:
-1. Direct solutions only - no "thinking out loud"
-2. No "Wait", "Actually", "Let me think", etc.
-3. 1-2 sentences per step max
-4. No markdown - use LaTeX for math only
-5. Format: Step 1/2/3... then Final Answer: \\boxed{}`;
+- MAX 2 lines text per step
+- ONE equation per step
+- NO explanations, NO "because", NO "since", NO reasoning
+- For images: state problem in 1 line, then solve
+- If complex, use more steps but keep each tiny
+
+Just math, minimal words.`
+      : `Math tutor. EXTREMELY BRIEF solutions only.
+
+Format:
+Step N: [few words]
+$$equation$$
+
+Final Answer: \\boxed{}
+
+MAX 2 lines per step. No explanations. Just math.`;
 
     // Build messages array
     const messages: ChatMessage[] = [
