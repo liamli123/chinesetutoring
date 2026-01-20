@@ -48,12 +48,16 @@ export async function POST(request: NextRequest) {
     // The reasoning is in reasoning_content, the final answer is in content
     const messageAny = responseMessage as unknown as Record<string, unknown>;
     const reasoning = messageAny.reasoning_content as string | undefined;
-    let solution = (responseMessage.content || '') as string;
+    let solution = ((responseMessage.content || '') as string).trim();
 
-    // If content is empty but we have reasoning, use that as the solution
+    // If solution is empty but we have reasoning, use reasoning as the solution
+    // This handles cases where the model only returns reasoning without a final answer
     if (!solution && reasoning) {
       solution = reasoning;
     }
+
+    // Debug: Log what we received (remove in production)
+    console.log('DeepSeek response - content:', responseMessage.content, 'reasoning_content:', reasoning ? reasoning.substring(0, 100) + '...' : 'none');
 
     const cost = calculateCost({
       prompt_tokens: usage.prompt_tokens,
