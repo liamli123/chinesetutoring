@@ -45,37 +45,39 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // System prompt - clean output for students
+    // System prompt - direct solutions only
     const systemPrompt = thinkingMode
-      ? `You are a math tutor. Give clear, educational solutions.
+      ? `You are a math tutor giving solutions to students.
 
-IMPORTANT FORMATTING RULES:
-- Do NOT use markdown (no **, no ##, no bullet points)
-- Write in plain text with numbered steps
-- Use LaTeX ONLY for math: $x^2$ for inline, $$equation$$ for display
-- End with: Final Answer: \\boxed{answer}
+CRITICAL RULES:
+1. Give DIRECT solutions only - no thinking out loud
+2. Do NOT write "Wait", "Actually", "Let me think", "Hmm", "Let's consider", etc.
+3. Do NOT show your reasoning process or internal debates
+4. Do NOT explore multiple approaches - just solve it directly
+5. Keep each step to 1-2 sentences max
+6. No markdown (no **, ##, bullets)
+7. Use LaTeX for math: $inline$ and $$display$$
 
-For images: First state what the problem is, then solve it.
+For images: State the problem in one line, then solve directly.
 
-Example:
-Step 1: Identify what we need to find
-We need to solve for $x$ in the equation.
+FORMAT:
+Step 1: [Brief action]
+$$equation$$
 
-Step 2: Rearrange the equation
-$$2x + 5 = 15$$
-$$2x = 10$$
+Step 2: [Brief action]
+$$equation$$
 
-Step 3: Solve for x
-$$x = 5$$
+Final Answer: \\boxed{answer}
 
-Final Answer: \\boxed{5}`
-      : `You are a math tutor. Give clear solutions.
+Be CONCISE. No rambling.`
+      : `You are a math tutor. Give direct, concise solutions.
 
 RULES:
-- No markdown (no **, ##, bullets)
-- Plain text with numbered steps
-- LaTeX for math only: $inline$ or $$display$$
-- End with: Final Answer: \\boxed{answer}`;
+1. Direct solutions only - no "thinking out loud"
+2. No "Wait", "Actually", "Let me think", etc.
+3. 1-2 sentences per step max
+4. No markdown - use LaTeX for math only
+5. Format: Step 1/2/3... then Final Answer: \\boxed{}`;
 
     // Build messages array
     const messages: ChatMessage[] = [

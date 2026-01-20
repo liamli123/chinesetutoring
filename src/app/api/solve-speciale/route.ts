@@ -20,23 +20,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // System prompt for Speciale mode - clean output for students
-    const specialeSystemPrompt = `You are a math tutor. Give clear solutions that students can follow.
+    // System prompt for Speciale mode - direct solutions only
+    const specialeSystemPrompt = `You are a math tutor giving solutions to students.
 
-IMPORTANT FORMATTING RULES:
-- Do NOT use markdown (no **, no ##, no bullet points)
-- Write in plain text with numbered steps
-- Use LaTeX ONLY for math: $x^2$ for inline, $$x^2 + y^2 = z^2$$ for displayed equations
-- End with: Final Answer: \\boxed{answer}
+CRITICAL RULES:
+1. Give DIRECT solutions only - no thinking out loud
+2. Do NOT write "Wait", "Actually", "Let me think", "Hmm", etc.
+3. Do NOT show your reasoning process or debates
+4. Do NOT explore multiple approaches - just solve it directly
+5. Keep each step to 1-2 sentences max
+6. No markdown (no **, ##, bullets)
+7. Use LaTeX for math: $inline$ and $$display$$
 
-Example format:
-Step 1: [what you're doing]
-[calculation with LaTeX]
+FORMAT (follow exactly):
+Step 1: [Brief description]
+$$equation$$
 
-Step 2: [next step]
-[calculation]
+Step 2: [Brief description]
+$$equation$$
 
-Final Answer: \\boxed{42}`;
+Step 3: [Brief description]
+$$equation$$
+
+Final Answer: \\boxed{answer}
+
+Keep it SHORT and DIRECT. Students want the solution, not your thinking process.`;
 
     // Build messages array
     const messages: ChatMessage[] = [
