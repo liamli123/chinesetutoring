@@ -47,17 +47,20 @@ export async function POST(request: NextRequest) {
     // For deepseek-reasoner, extract both content and reasoning_content
     // The reasoning is in reasoning_content, the final answer is in content
     const messageAny = responseMessage as unknown as Record<string, unknown>;
-    const reasoning = messageAny.reasoning_content as string | undefined;
+    const reasoningContent = messageAny.reasoning_content as string | undefined;
     let solution = ((responseMessage.content || '') as string).trim();
+    let reasoning: string | undefined;
 
-    // If solution is empty but we have reasoning, use reasoning as the solution
-    // This handles cases where the model only returns reasoning without a final answer
-    if (!solution && reasoning) {
-      solution = reasoning;
+    // If solution exists, reasoning is separate (show both)
+    // If solution is empty, use reasoning as solution (don't show reasoning separately)
+    if (solution && reasoningContent) {
+      // Both exist - show solution as main content, reasoning in expandable section
+      reasoning = reasoningContent;
+    } else if (!solution && reasoningContent) {
+      // Only reasoning exists - use it as the solution, don't duplicate in reasoning section
+      solution = reasoningContent;
+      reasoning = undefined;
     }
-
-    // Debug: Log what we received (remove in production)
-    console.log('DeepSeek response - content:', responseMessage.content, 'reasoning_content:', reasoning ? reasoning.substring(0, 100) + '...' : 'none');
 
     const cost = calculateCost({
       prompt_tokens: usage.prompt_tokens,

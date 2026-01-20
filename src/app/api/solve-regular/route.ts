@@ -81,13 +81,16 @@ export async function POST(request: NextRequest) {
 
     // For deepseek-reasoner (thinking mode), extract reasoning_content
     if (thinkingMode) {
-      reasoning = messageAny.reasoning_content as string | undefined;
-      // If solution is empty but we have reasoning, use reasoning as the solution
-      if (!solution && reasoning) {
-        solution = reasoning;
+      const reasoningContent = messageAny.reasoning_content as string | undefined;
+
+      // If solution exists, reasoning is separate (show both)
+      // If solution is empty, use reasoning as solution (don't show reasoning separately)
+      if (solution && reasoningContent) {
+        reasoning = reasoningContent;
+      } else if (!solution && reasoningContent) {
+        solution = reasoningContent;
+        reasoning = undefined;
       }
-      // Debug log
-      console.log('DeepSeek response - content:', responseMessage.content, 'reasoning_content:', reasoning ? reasoning.substring(0, 100) + '...' : 'none');
     }
 
     const cost = calculateCost({
