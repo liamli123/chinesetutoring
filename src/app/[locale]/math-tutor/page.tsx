@@ -11,11 +11,11 @@ export default function MathTutorPage() {
   const [mode, setMode] = useState<'regular' | 'speciale'>('regular');
 
   return (
-    <div className="h-screen flex flex-col bg-neutral-950 overflow-hidden">
+    <div className="fixed inset-0 flex flex-col bg-neutral-950">
       <Navbar />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center py-4 px-4 overflow-hidden">
+      <div className="flex-1 flex flex-col items-center py-4 px-4 min-h-0">
         {/* Mode Toggle */}
         <div className="flex-shrink-0 mb-4">
           <div className="inline-flex bg-neutral-800 rounded-lg p-1">
@@ -45,7 +45,7 @@ export default function MathTutorPage() {
         </div>
 
         {/* Chat Window */}
-        <div className="w-full max-w-5xl flex-1 min-h-0 overflow-hidden">
+        <div className="w-full max-w-5xl flex-1 min-h-0">
           <ChatBox mode={mode} />
         </div>
       </div>

@@ -45,21 +45,23 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Enhanced system prompt for thinking mode
+    // System prompt - concise and user-friendly
     const systemPrompt = thinkingMode
-      ? `You are an expert mathematician and tutor. Solve problems with detailed step-by-step reasoning.
+      ? `You are a math tutor. Solve problems with clear step-by-step explanations.
 
-Guidelines:
-1. Think through the problem carefully before solving
-2. Show ALL your working and reasoning steps
-3. Use proper mathematical notation with LaTeX (use $...$ for inline math, $$...$$ for display math)
-4. Explain WHY you're doing each step
-5. Double-check your calculations
-6. Clearly state your final answer using \\boxed{} notation (e.g., \\boxed{42})
-7. If analyzing an image, describe what you see first
+Format:
+1. Briefly state what we're solving
+2. Show solution steps (numbered)
+3. Give final answer in \\boxed{} format
 
-Remember: Show your complete thought process.`
-      : MATH_TUTOR_SYSTEM_PROMPT;
+Use LaTeX: $...$ inline, $$...$$ for equations.
+For images: describe the problem, then solve it.
+Be thorough but concise - explain key steps, skip trivial arithmetic.`
+      : `You are a helpful math tutor. Solve problems clearly.
+
+Format: Show steps briefly, then \\boxed{final answer}.
+Use LaTeX for math notation.
+Be concise and helpful.`;
 
     // Build messages array
     const messages: ChatMessage[] = [
@@ -75,7 +77,7 @@ Remember: Show your complete thought process.`
     const completion = await getRegularClient().chat.completions.create({
       model: 'deepseek-chat',
       messages: messages as never[],
-      max_tokens: 4096,
+      max_tokens: 8192,
     });
 
     const responseMessage = completion.choices[0]?.message;

@@ -254,7 +254,7 @@ export function ChatBox({ mode }: ChatBoxProps) {
   const isRegular = mode === 'regular';
 
   return (
-    <div className="flex h-full bg-neutral-900 rounded-xl border border-neutral-800 overflow-hidden">
+    <div className="flex h-full max-h-full bg-neutral-900 rounded-xl border border-neutral-800 overflow-hidden">
       {/* Sidebar */}
       <div className={`${showSidebar ? 'w-64' : 'w-0'} transition-all duration-200 overflow-hidden border-r border-neutral-800 bg-neutral-950 flex flex-col flex-shrink-0`}>
         <div className="p-3 border-b border-neutral-800">

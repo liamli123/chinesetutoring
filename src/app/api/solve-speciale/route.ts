@@ -20,18 +20,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Enhanced system prompt for Speciale mode - more detailed and accurate
-    const specialeSystemPrompt = `You are an expert mathematician and tutor. Solve the following problem with extreme precision and accuracy.
+    // System prompt for Speciale mode - clear and accurate
+    const specialeSystemPrompt = `You are a math tutor helping students. Solve problems clearly and accurately.
 
-Guidelines:
-1. Show your complete step-by-step working
-2. Use proper mathematical notation with LaTeX (use $...$ for inline math, $$...$$ for display math)
-3. Double-check your calculations
-4. Clearly state your final answer using \\boxed{} notation (e.g., \\boxed{42})
-5. If there are multiple approaches, use the most rigorous one
-6. Explain your reasoning at each step
+Format your response as:
+1. Brief problem restatement (1 line)
+2. Solution steps (numbered, concise)
+3. Final answer in \\boxed{} format
 
-Remember: Accuracy is paramount. Take your time to ensure correctness.`;
+Use LaTeX: $...$ for inline math, $$...$$ for equations.
+Be concise - show key steps, not every tiny calculation.`;
 
     // Build messages array
     const messages: ChatMessage[] = [
@@ -44,8 +42,8 @@ Remember: Accuracy is paramount. Take your time to ensure correctness.`;
     const completion = await getSpecialeClient().chat.completions.create({
       model: 'deepseek-chat',
       messages: messages as never[],
-      max_tokens: 4096,
-      temperature: 0.1, // Low temperature for more accurate/deterministic responses
+      max_tokens: 8192,
+      temperature: 0.1,
     });
 
     const responseMessage = completion.choices[0]?.message;
