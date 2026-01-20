@@ -108,11 +108,15 @@ function renderLineWithMath(line: string, lineIndex: number) {
 
 // Main render function for message content
 function renderMathContent(content: string) {
+  // Split by step headers to create clear sections
+  const stepPattern = /^(Step\s*\d+\s*:?)/im;
+  const finalAnswerPattern = /^(Final\s*Answer\s*:?)/im;
+
   // Split content into paragraphs (double newlines) and lines
   const paragraphs = content.split(/\n\n+/);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {paragraphs.map((paragraph, pIndex) => {
         // Check if paragraph is primarily a block equation
         const trimmed = paragraph.trim();
@@ -120,7 +124,7 @@ function renderMathContent(content: string) {
           const mathContent = trimmed.slice(2, -2);
           try {
             return (
-              <div key={pIndex} className="my-3 py-2 overflow-x-auto bg-neutral-900/50 rounded px-3">
+              <div key={pIndex} className="my-4 py-3 overflow-x-auto bg-neutral-900/50 rounded-lg px-4 border-l-2 border-blue-500/50">
                 <BlockMath math={mathContent} />
               </div>
             );
@@ -129,23 +133,62 @@ function renderMathContent(content: string) {
           }
         }
 
+        // Check if this paragraph starts with Step or Final Answer
+        const isStepParagraph = stepPattern.test(trimmed);
+        const isFinalAnswerParagraph = finalAnswerPattern.test(trimmed);
+
         // Split paragraph into lines and render each
         const lines = paragraph.split(/\n/);
 
+        // Step sections get special styling
+        if (isStepParagraph) {
+          return (
+            <div key={pIndex} className="bg-neutral-800/30 rounded-lg p-4 border-l-4 border-blue-500">
+              <div className="space-y-3">
+                {lines.map((line, lIndex) => {
+                  if (!line.trim()) return null;
+
+                  const isHeader = /^Step\s*\d+/i.test(line.trim());
+
+                  return (
+                    <div
+                      key={lIndex}
+                      className={isHeader ? 'pb-2 border-b border-neutral-700 mb-3' : 'pl-2'}
+                    >
+                      {renderLineWithMath(line, pIndex * 1000 + lIndex)}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+
+        // Final answer gets special styling
+        if (isFinalAnswerParagraph) {
+          return (
+            <div key={pIndex} className="bg-green-900/20 rounded-lg p-4 border-l-4 border-green-500 mt-6">
+              <div className="space-y-2">
+                {lines.map((line, lIndex) => {
+                  if (!line.trim()) return null;
+                  return (
+                    <div key={lIndex}>
+                      {renderLineWithMath(line, pIndex * 1000 + lIndex)}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+
+        // Regular paragraphs
         return (
-          <div key={pIndex} className="leading-relaxed">
+          <div key={pIndex} className="leading-relaxed space-y-2">
             {lines.map((line, lIndex) => {
               if (!line.trim()) return null;
-
-              // Check if this line is a step header (give it more prominence)
-              const isStepHeader = /^Step\s*\d+/i.test(line.trim());
-              const isFinalAnswer = /^Final\s*Answer/i.test(line.trim());
-
               return (
-                <div
-                  key={lIndex}
-                  className={`${isStepHeader ? 'mt-4 mb-2' : ''} ${isFinalAnswer ? 'mt-6 mb-2 p-3 bg-green-900/20 border-l-4 border-green-500 rounded-r' : ''}`}
-                >
+                <div key={lIndex} className="py-1">
                   {renderLineWithMath(line, pIndex * 1000 + lIndex)}
                 </div>
               );
