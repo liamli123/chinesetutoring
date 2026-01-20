@@ -18,15 +18,13 @@ interface MessageBubbleProps {
   imageUrl?: string;
 }
 
-// Helper function to render content with LaTeX and \boxed{} highlighting
-function renderMathContent(content: string) {
-  // Split content by LaTeX delimiters
-  // Handle: $...$ (inline), $$...$$ (block), \[...\] (block), \(...\) (inline), \boxed{...}
+// Helper function to render a single line/paragraph with LaTeX
+function renderLineWithMath(line: string, lineIndex: number) {
+  // Check if this is a step header
+  const stepMatch = line.match(/^(Step\s*\d+\s*:?)/i);
+  const finalAnswerMatch = line.match(/^(Final\s*Answer\s*:?)/i);
 
-  const parts: { type: 'text' | 'inline-math' | 'block-math' | 'boxed'; content: string }[] = [];
-  let remaining = content;
-
-  // Process the content to extract math expressions
+  // Math patterns to handle
   const mathPatterns = [
     { regex: /\$\$([\s\S]*?)\$\$/g, type: 'block-math' as const },
     { regex: /\\\[([\s\S]*?)\\\]/g, type: 'block-math' as const },
@@ -35,15 +33,14 @@ function renderMathContent(content: string) {
     { regex: /\\boxed\{([^}]+)\}/g, type: 'boxed' as const },
   ];
 
-  // Simple approach: split by patterns and reassemble
-  let processedContent = content;
+  let processedLine = line;
   const replacements: { placeholder: string; type: string; content: string }[] = [];
   let counter = 0;
 
   // Replace all math expressions with placeholders
   for (const { regex, type } of mathPatterns) {
-    processedContent = processedContent.replace(regex, (match, captured) => {
-      const placeholder = `__MATH_${counter}__`;
+    processedLine = processedLine.replace(regex, (match, captured) => {
+      const placeholder = `__MATH_${lineIndex}_${counter}__`;
       replacements.push({ placeholder, type, content: captured });
       counter++;
       return placeholder;
@@ -51,42 +48,112 @@ function renderMathContent(content: string) {
   }
 
   // Split by placeholders and rebuild
-  const segments = processedContent.split(/(__MATH_\d+__)/g);
+  const segments = processedLine.split(/(__MATH_\d+_\d+__)/g);
+
+  const renderedSegments = segments.map((segment, index) => {
+    const replacement = replacements.find(r => r.placeholder === segment);
+
+    if (replacement) {
+      try {
+        if (replacement.type === 'block-math') {
+          return (
+            <div key={index} className="my-3 py-2 overflow-x-auto bg-neutral-900/50 rounded px-3">
+              <BlockMath math={replacement.content} />
+            </div>
+          );
+        } else if (replacement.type === 'inline-math') {
+          return <InlineMath key={index} math={replacement.content} />;
+        } else if (replacement.type === 'boxed') {
+          return (
+            <span
+              key={index}
+              className="inline-block px-3 py-1 mx-1 bg-green-900/50 border border-green-600 rounded-md font-bold text-green-300"
+            >
+              <InlineMath math={replacement.content} />
+            </span>
+          );
+        }
+      } catch (e) {
+        return <span key={index}>{segment}</span>;
+      }
+    }
+
+    // Handle step header styling
+    if (index === 0 && stepMatch) {
+      const restOfText = segment.replace(stepMatch[0], '');
+      return (
+        <span key={index}>
+          <span className="font-bold text-blue-400">{stepMatch[0]}</span>
+          {restOfText}
+        </span>
+      );
+    }
+
+    // Handle final answer styling
+    if (index === 0 && finalAnswerMatch) {
+      const restOfText = segment.replace(finalAnswerMatch[0], '');
+      return (
+        <span key={index}>
+          <span className="font-bold text-green-400">{finalAnswerMatch[0]}</span>
+          {restOfText}
+        </span>
+      );
+    }
+
+    return <span key={index}>{segment}</span>;
+  });
+
+  return <>{renderedSegments}</>;
+}
+
+// Main render function for message content
+function renderMathContent(content: string) {
+  // Split content into paragraphs (double newlines) and lines
+  const paragraphs = content.split(/\n\n+/);
 
   return (
-    <span className="whitespace-pre-wrap">
-      {segments.map((segment, index) => {
-        const replacement = replacements.find(r => r.placeholder === segment);
-
-        if (replacement) {
+    <div className="space-y-4">
+      {paragraphs.map((paragraph, pIndex) => {
+        // Check if paragraph is primarily a block equation
+        const trimmed = paragraph.trim();
+        if (trimmed.startsWith('$$') && trimmed.endsWith('$$')) {
+          const mathContent = trimmed.slice(2, -2);
           try {
-            if (replacement.type === 'block-math') {
-              return (
-                <div key={index} className="my-2 overflow-x-auto">
-                  <BlockMath math={replacement.content} />
-                </div>
-              );
-            } else if (replacement.type === 'inline-math') {
-              return <InlineMath key={index} math={replacement.content} />;
-            } else if (replacement.type === 'boxed') {
-              return (
-                <span
-                  key={index}
-                  className="inline-block px-3 py-1 mx-1 bg-neutral-800 border border-neutral-600 rounded-md font-bold text-white"
-                >
-                  <InlineMath math={replacement.content} />
-                </span>
-              );
-            }
+            return (
+              <div key={pIndex} className="my-3 py-2 overflow-x-auto bg-neutral-900/50 rounded px-3">
+                <BlockMath math={mathContent} />
+              </div>
+            );
           } catch (e) {
-            // If LaTeX parsing fails, return as text
-            return <span key={index}>{segment}</span>;
+            return <p key={pIndex} className="leading-relaxed">{paragraph}</p>;
           }
         }
 
-        return <span key={index}>{segment}</span>;
+        // Split paragraph into lines and render each
+        const lines = paragraph.split(/\n/);
+
+        return (
+          <div key={pIndex} className="leading-relaxed">
+            {lines.map((line, lIndex) => {
+              if (!line.trim()) return null;
+
+              // Check if this line is a step header (give it more prominence)
+              const isStepHeader = /^Step\s*\d+/i.test(line.trim());
+              const isFinalAnswer = /^Final\s*Answer/i.test(line.trim());
+
+              return (
+                <div
+                  key={lIndex}
+                  className={`${isStepHeader ? 'mt-4 mb-2' : ''} ${isFinalAnswer ? 'mt-6 mb-2 p-3 bg-green-900/20 border-l-4 border-green-500 rounded-r' : ''}`}
+                >
+                  {renderLineWithMath(line, pIndex * 1000 + lIndex)}
+                </div>
+              );
+            })}
+          </div>
+        );
       })}
-    </span>
+    </div>
   );
 }
 
