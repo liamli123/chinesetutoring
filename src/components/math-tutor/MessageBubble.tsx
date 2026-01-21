@@ -301,7 +301,11 @@ export function MessageBubble({
 
         {/* Message content */}
         <div className="text-sm md:text-base">
-          {isUser ? content : renderMarkdown(content)}
+          {isUser ? content : (
+            <pre className="whitespace-pre-wrap font-mono text-sm bg-neutral-900 p-4 rounded-lg overflow-x-auto">
+              {content}
+            </pre>
+          )}
         </div>
 
         {/* Reasoning section (collapsible) */}
