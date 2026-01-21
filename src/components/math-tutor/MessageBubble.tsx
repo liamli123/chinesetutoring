@@ -18,11 +18,29 @@ interface MessageBubbleProps {
   imageUrl?: string;
 }
 
+// Strip markdown formatting
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')  // **bold** -> bold
+    .replace(/\*([^*]+)\*/g, '$1')       // *italic* -> italic
+    .replace(/^#{1,6}\s*/gm, '')         // ## headers -> text
+    .replace(/^[-*_]{3,}\s*$/gm, '')     // --- or *** -> nothing
+    .replace(/`([^`]+)`/g, '$1');        // `code` -> code
+}
+
 // Helper function to render a single line/paragraph with LaTeX
 function renderLineWithMath(line: string, lineIndex: number) {
+  // Strip markdown first
+  line = stripMarkdown(line);
+
   // Check if this is a step header
   const stepMatch = line.match(/^(Step\s*\d+\s*:?)/i);
   const finalAnswerMatch = line.match(/^(Final\s*Answer\s*:?)/i);
+
+  // Check for section labels (Given:, Using:, Result:)
+  const givenMatch = line.match(/^(Given\s*:)/i);
+  const usingMatch = line.match(/^(Using\s*:)/i);
+  const resultMatch = line.match(/^(Result\s*:)/i);
 
   // Math patterns to handle
   const mathPatterns = [
@@ -95,6 +113,35 @@ function renderLineWithMath(line: string, lineIndex: number) {
       return (
         <span key={index}>
           <span className="font-bold text-green-400">{finalAnswerMatch[0]}</span>
+          {restOfText}
+        </span>
+      );
+    }
+
+    // Handle section labels (Given:, Using:, Result:)
+    if (index === 0 && givenMatch) {
+      const restOfText = segment.replace(givenMatch[0], '');
+      return (
+        <span key={index}>
+          <span className="font-semibold text-yellow-400">{givenMatch[0]}</span>
+          {restOfText}
+        </span>
+      );
+    }
+    if (index === 0 && usingMatch) {
+      const restOfText = segment.replace(usingMatch[0], '');
+      return (
+        <span key={index}>
+          <span className="font-semibold text-cyan-400">{usingMatch[0]}</span>
+          {restOfText}
+        </span>
+      );
+    }
+    if (index === 0 && resultMatch) {
+      const restOfText = segment.replace(resultMatch[0], '');
+      return (
+        <span key={index}>
+          <span className="font-semibold text-purple-400">{resultMatch[0]}</span>
           {restOfText}
         </span>
       );
