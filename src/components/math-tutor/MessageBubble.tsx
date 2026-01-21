@@ -106,98 +106,256 @@ function renderLineWithMath(line: string, lineIndex: number) {
   return <>{renderedSegments}</>;
 }
 
+// Parse content into structured blocks (equations, text, steps)
+function parseIntoBlocks(content: string): Array<{ type: 'step' | 'equation' | 'text' | 'final'; content: string }> {
+  const blocks: Array<{ type: 'step' | 'equation' | 'text' | 'final'; content: string }> = [];
+
+  // First, extract all block equations and replace with placeholders
+  let processed = content;
+  const equations: string[] = [];
+
+  // Extract $$...$$ equations
+  processed = processed.replace(/\$\$([\s\S]*?)\$\$/g, (_, eq) => {
+    equations.push(eq.trim());
+    return `__EQ_${equations.length - 1}__`;
+  });
+
+  // Extract \[...\] equations
+  processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, (_, eq) => {
+    equations.push(eq.trim());
+    return `__EQ_${equations.length - 1}__`;
+  });
+
+  // Split by Step headers and Final Answer
+  const parts = processed.split(/(Step\s*\d+\s*:?|Final\s*Answer\s*:?)/i);
+
+  let currentType: 'step' | 'text' | 'final' = 'text';
+  let stepNum = 0;
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i].trim();
+    if (!part) continue;
+
+    // Check if this is a header
+    if (/^Step\s*\d+/i.test(part)) {
+      currentType = 'step';
+      stepNum++;
+      continue;
+    }
+    if (/^Final\s*Answer/i.test(part)) {
+      currentType = 'final';
+      continue;
+    }
+
+    // Process the content - split by equation placeholders
+    const segments = part.split(/(__EQ_\d+__)/g);
+
+    for (const segment of segments) {
+      const trimmed = segment.trim();
+      if (!trimmed) continue;
+
+      // Check if it's an equation placeholder
+      const eqMatch = trimmed.match(/__EQ_(\d+)__/);
+      if (eqMatch) {
+        const eqIndex = parseInt(eqMatch[1]);
+        blocks.push({ type: 'equation', content: equations[eqIndex] });
+      } else {
+        // It's text - split into sentences for better readability
+        const sentences = trimmed.split(/(?<=[.!?])\s+/);
+        const textContent = sentences.join('\n');
+        blocks.push({ type: currentType === 'final' ? 'final' : currentType, content: textContent });
+      }
+    }
+  }
+
+  return blocks;
+}
+
+// Render a single block
+function renderBlock(block: { type: string; content: string }, index: number) {
+  if (block.type === 'equation') {
+    try {
+      return (
+        <div key={index} className="my-4 py-3 px-4 bg-neutral-900/60 rounded-lg border-l-3 border-blue-400 overflow-x-auto">
+          <BlockMath math={block.content} />
+        </div>
+      );
+    } catch {
+      return <div key={index} className="text-red-400">{block.content}</div>;
+    }
+  }
+
+  if (block.type === 'step') {
+    return (
+      <div key={index} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500">
+        <div className="space-y-2">
+          {block.content.split('\n').map((line, i) => (
+            <div key={i} className="leading-relaxed">
+              {renderLineWithMath(line, index * 100 + i)}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (block.type === 'final') {
+    return (
+      <div key={index} className="bg-green-900/30 rounded-lg p-4 border-l-4 border-green-500">
+        <div className="font-semibold text-green-400 mb-2">Final Answer</div>
+        <div className="space-y-2">
+          {block.content.split('\n').map((line, i) => (
+            <div key={i}>
+              {renderLineWithMath(line, index * 100 + i)}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Regular text
+  return (
+    <div key={index} className="leading-relaxed text-neutral-300">
+      {block.content.split('\n').map((line, i) => (
+        <div key={i} className="py-1">
+          {renderLineWithMath(line, index * 100 + i)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // Main render function for message content
 function renderMathContent(content: string) {
-  // Split by step headers to create clear sections
-  const stepPattern = /^(Step\s*\d+\s*:?)/im;
-  const finalAnswerPattern = /^(Final\s*Answer\s*:?)/im;
+  const blocks = parseIntoBlocks(content);
 
-  // Split content into paragraphs (double newlines) and lines
-  const paragraphs = content.split(/\n\n+/);
+  // Group consecutive step blocks with their equations
+  const groupedContent: JSX.Element[] = [];
+  let currentStepContent: Array<{ type: string; content: string }> = [];
+  let stepCounter = 0;
 
-  return (
-    <div className="space-y-6">
-      {paragraphs.map((paragraph, pIndex) => {
-        // Check if paragraph is primarily a block equation
-        const trimmed = paragraph.trim();
-        if (trimmed.startsWith('$$') && trimmed.endsWith('$$')) {
-          const mathContent = trimmed.slice(2, -2);
-          try {
-            return (
-              <div key={pIndex} className="my-4 py-3 overflow-x-auto bg-neutral-900/50 rounded-lg px-4 border-l-2 border-blue-500/50">
-                <BlockMath math={mathContent} />
-              </div>
-            );
-          } catch (e) {
-            return <p key={pIndex} className="leading-relaxed">{paragraph}</p>;
-          }
-        }
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i];
 
-        // Check if this paragraph starts with Step or Final Answer
-        const isStepParagraph = stepPattern.test(trimmed);
-        const isFinalAnswerParagraph = finalAnswerPattern.test(trimmed);
-
-        // Split paragraph into lines and render each
-        const lines = paragraph.split(/\n/);
-
-        // Step sections get special styling
-        if (isStepParagraph) {
-          return (
-            <div key={pIndex} className="bg-neutral-800/30 rounded-lg p-4 border-l-4 border-blue-500">
-              <div className="space-y-3">
-                {lines.map((line, lIndex) => {
-                  if (!line.trim()) return null;
-
-                  const isHeader = /^Step\s*\d+/i.test(line.trim());
-
+    if (block.type === 'step') {
+      // If we have accumulated content, flush it
+      if (currentStepContent.length > 0) {
+        stepCounter++;
+        groupedContent.push(
+          <div key={`step-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
+            <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
+            {currentStepContent.map((b, j) => {
+              if (b.type === 'equation') {
+                try {
                   return (
-                    <div
-                      key={lIndex}
-                      className={isHeader ? 'pb-2 border-b border-neutral-700 mb-3' : 'pl-2'}
-                    >
-                      {renderLineWithMath(line, pIndex * 1000 + lIndex)}
+                    <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
+                      <BlockMath math={b.content} />
                     </div>
                   );
-                })}
-              </div>
-            </div>
-          );
-        }
-
-        // Final answer gets special styling
-        if (isFinalAnswerParagraph) {
-          return (
-            <div key={pIndex} className="bg-green-900/20 rounded-lg p-4 border-l-4 border-green-500 mt-6">
-              <div className="space-y-2">
-                {lines.map((line, lIndex) => {
-                  if (!line.trim()) return null;
-                  return (
-                    <div key={lIndex}>
-                      {renderLineWithMath(line, pIndex * 1000 + lIndex)}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        }
-
-        // Regular paragraphs
-        return (
-          <div key={pIndex} className="leading-relaxed space-y-2">
-            {lines.map((line, lIndex) => {
-              if (!line.trim()) return null;
+                } catch {
+                  return <div key={j}>{b.content}</div>;
+                }
+              }
               return (
-                <div key={lIndex} className="py-1">
-                  {renderLineWithMath(line, pIndex * 1000 + lIndex)}
+                <div key={j} className="text-neutral-300 leading-relaxed">
+                  {b.content.split('\n').map((line, k) => (
+                    <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
+                  ))}
                 </div>
               );
             })}
           </div>
         );
-      })}
-    </div>
-  );
+        currentStepContent = [];
+      }
+      currentStepContent.push(block);
+    } else if (block.type === 'equation' && currentStepContent.length > 0) {
+      currentStepContent.push(block);
+    } else if (block.type === 'final') {
+      // Flush any remaining step content
+      if (currentStepContent.length > 0) {
+        stepCounter++;
+        groupedContent.push(
+          <div key={`step-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
+            <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
+            {currentStepContent.map((b, j) => {
+              if (b.type === 'equation') {
+                try {
+                  return (
+                    <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
+                      <BlockMath math={b.content} />
+                    </div>
+                  );
+                } catch {
+                  return <div key={j}>{b.content}</div>;
+                }
+              }
+              return (
+                <div key={j} className="text-neutral-300 leading-relaxed">
+                  {b.content.split('\n').map((line, k) => (
+                    <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        );
+        currentStepContent = [];
+      }
+
+      // Render final answer
+      groupedContent.push(
+        <div key={`final-${i}`} className="bg-green-900/30 rounded-lg p-4 border-l-4 border-green-500">
+          <div className="font-semibold text-green-400 mb-3">Final Answer</div>
+          <div className="space-y-2">
+            {block.content.split('\n').map((line, k) => (
+              <div key={k}>{renderLineWithMath(line, i * 100 + k)}</div>
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      // Standalone content
+      if (currentStepContent.length > 0) {
+        currentStepContent.push(block);
+      } else {
+        groupedContent.push(renderBlock(block, i));
+      }
+    }
+  }
+
+  // Flush any remaining content
+  if (currentStepContent.length > 0) {
+    stepCounter++;
+    groupedContent.push(
+      <div key={`step-final-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
+        <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
+        {currentStepContent.map((b, j) => {
+          if (b.type === 'equation') {
+            try {
+              return (
+                <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
+                  <BlockMath math={b.content} />
+                </div>
+              );
+            } catch {
+              return <div key={j}>{b.content}</div>;
+            }
+          }
+          return (
+            <div key={j} className="text-neutral-300 leading-relaxed">
+              {b.content.split('\n').map((line, k) => (
+                <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return <div className="space-y-4">{groupedContent}</div>;
 }
 
 export function MessageBubble({
