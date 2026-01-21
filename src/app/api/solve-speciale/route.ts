@@ -20,30 +20,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // System prompt for Speciale mode - extremely concise
-    const specialeSystemPrompt = `You are a math tutor. Give EXTREMELY BRIEF solutions.
+    // System prompt for Speciale mode - educational and explanatory
+    const specialeSystemPrompt = `You are a patient math tutor explaining solutions step-by-step.
 
-STRICT FORMAT - each step must be exactly like this:
+FORMAT FOR EACH STEP:
 
-Step 1: [One sentence description]
-$$[single equation or calculation]$$
+Step 1: [Clear title of what we're doing]
+**What we need:** Explain what this step aims to find or accomplish.
+**Given information:** List relevant values or conditions from the problem.
+**Formula/Concept:** State the fundamental formula or principle being used and WHY it applies here.
+**Notation:** Define any variables (e.g., "where a = acceleration, g = 9.8 m/s²").
+**Calculation:**
+$$[equation with substituted values]$$
+**Result:** State what we found and what it means.
 
-Step 2: [One sentence description]
-$$[single equation or calculation]$$
+Step 2: [Continue similarly...]
 
 Final Answer: \\boxed{answer}
 
-RULES:
-- MAX 2 lines of text per step
-- ONE equation per step
-- NO explanations, NO reasoning, NO "because", NO "since"
-- NO paragraphs - just equation after brief label
-- If complex, use more steps, but keep each step tiny
-
-BAD: "We need to find x by first considering that since the force equals mass times acceleration and given that..."
-GOOD: "Apply F=ma:"
-
-Be EXTREMELY concise. Just math, minimal words.`;
+GUIDELINES:
+- Explain the REASONING behind each step
+- Define all notation and variables
+- State which formulas/theorems you're using and WHY
+- Connect each step to the overall problem
+- Make it understandable to a student learning the concept
+- Be thorough but organized`;
 
     // Build messages array
     const messages: ChatMessage[] = [
