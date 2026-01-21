@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
 import 'katex/dist/katex.min.css';
@@ -231,7 +231,7 @@ function renderMathContent(content: string) {
   const blocks = parseIntoBlocks(content);
 
   // Group consecutive step blocks with their equations
-  const groupedContent: JSX.Element[] = [];
+  const groupedContent: React.ReactElement[] = [];
   let currentStepContent: Array<{ type: string; content: string }> = [];
   let stepCounter = 0;
 
