@@ -18,391 +18,245 @@ interface MessageBubbleProps {
   imageUrl?: string;
 }
 
-// Strip markdown formatting
-function stripMarkdown(text: string): string {
-  return text
-    .replace(/\*\*([^*]+)\*\*/g, '$1')  // **bold** -> bold
-    .replace(/\*([^*]+)\*/g, '$1')       // *italic* -> italic
-    .replace(/^#{1,6}\s*/gm, '')         // ## headers -> text
-    .replace(/^[-*_]{3,}\s*$/gm, '')     // --- or *** -> nothing
-    .replace(/`([^`]+)`/g, '$1');        // `code` -> code
-}
+// Parse and render inline content (bold, inline math)
+function renderInlineContent(text: string, keyPrefix: string): React.ReactNode[] {
+  const elements: React.ReactNode[] = [];
+  let remaining = text;
+  let index = 0;
 
-// Helper function to render a single line/paragraph with LaTeX
-function renderLineWithMath(line: string, lineIndex: number) {
-  // Strip markdown first
-  line = stripMarkdown(line);
-
-  // Check if this is a step header
-  const stepMatch = line.match(/^(Step\s*\d+\s*:?)/i);
-  const finalAnswerMatch = line.match(/^(Final\s*Answer\s*:?)/i);
-
-  // Check for section labels (Given:, Using:, Result:)
-  const givenMatch = line.match(/^(Given\s*:)/i);
-  const usingMatch = line.match(/^(Using\s*:)/i);
-  const resultMatch = line.match(/^(Result\s*:)/i);
-
-  // Math patterns to handle
-  const mathPatterns = [
-    { regex: /\$\$([\s\S]*?)\$\$/g, type: 'block-math' as const },
-    { regex: /\\\[([\s\S]*?)\\\]/g, type: 'block-math' as const },
-    { regex: /\\\(([\s\S]*?)\\\)/g, type: 'inline-math' as const },
-    { regex: /\$([^\$\n]+?)\$/g, type: 'inline-math' as const },
-    { regex: /\\boxed\{([^}]+)\}/g, type: 'boxed' as const },
-  ];
-
-  let processedLine = line;
-  const replacements: { placeholder: string; type: string; content: string }[] = [];
-  let counter = 0;
-
-  // Replace all math expressions with placeholders
-  for (const { regex, type } of mathPatterns) {
-    processedLine = processedLine.replace(regex, (match, captured) => {
-      const placeholder = `__MATH_${lineIndex}_${counter}__`;
-      replacements.push({ placeholder, type, content: captured });
-      counter++;
-      return placeholder;
-    });
-  }
-
-  // Split by placeholders and rebuild
-  const segments = processedLine.split(/(__MATH_\d+_\d+__)/g);
-
-  const renderedSegments = segments.map((segment, index) => {
-    const replacement = replacements.find(r => r.placeholder === segment);
-
-    if (replacement) {
+  while (remaining.length > 0) {
+    // Check for inline math $...$ (not $$)
+    const inlineMathMatch = remaining.match(/^\$([^\$\n]+?)\$/);
+    if (inlineMathMatch) {
       try {
-        if (replacement.type === 'block-math') {
-          return (
-            <div key={index} className="my-3 py-2 overflow-x-auto bg-neutral-900/50 rounded px-3">
-              <BlockMath math={replacement.content} />
-            </div>
-          );
-        } else if (replacement.type === 'inline-math') {
-          return <InlineMath key={index} math={replacement.content} />;
-        } else if (replacement.type === 'boxed') {
-          return (
-            <span
-              key={index}
-              className="inline-block px-3 py-1 mx-1 bg-green-900/50 border border-green-600 rounded-md font-bold text-green-300"
-            >
-              <InlineMath math={replacement.content} />
-            </span>
-          );
-        }
-      } catch (e) {
-        return <span key={index}>{segment}</span>;
+        elements.push(<InlineMath key={`${keyPrefix}-${index}`} math={inlineMathMatch[1]} />);
+      } catch {
+        elements.push(<span key={`${keyPrefix}-${index}`}>{inlineMathMatch[0]}</span>);
       }
-    }
-
-    // Handle step header styling
-    if (index === 0 && stepMatch) {
-      const restOfText = segment.replace(stepMatch[0], '');
-      return (
-        <span key={index}>
-          <span className="font-bold text-blue-400">{stepMatch[0]}</span>
-          {restOfText}
-        </span>
-      );
-    }
-
-    // Handle final answer styling
-    if (index === 0 && finalAnswerMatch) {
-      const restOfText = segment.replace(finalAnswerMatch[0], '');
-      return (
-        <span key={index}>
-          <span className="font-bold text-green-400">{finalAnswerMatch[0]}</span>
-          {restOfText}
-        </span>
-      );
-    }
-
-    // Handle section labels (Given:, Using:, Result:)
-    if (index === 0 && givenMatch) {
-      const restOfText = segment.replace(givenMatch[0], '');
-      return (
-        <span key={index}>
-          <span className="font-semibold text-yellow-400">{givenMatch[0]}</span>
-          {restOfText}
-        </span>
-      );
-    }
-    if (index === 0 && usingMatch) {
-      const restOfText = segment.replace(usingMatch[0], '');
-      return (
-        <span key={index}>
-          <span className="font-semibold text-cyan-400">{usingMatch[0]}</span>
-          {restOfText}
-        </span>
-      );
-    }
-    if (index === 0 && resultMatch) {
-      const restOfText = segment.replace(resultMatch[0], '');
-      return (
-        <span key={index}>
-          <span className="font-semibold text-purple-400">{resultMatch[0]}</span>
-          {restOfText}
-        </span>
-      );
-    }
-
-    return <span key={index}>{segment}</span>;
-  });
-
-  return <>{renderedSegments}</>;
-}
-
-// Parse content into structured blocks (equations, text, steps)
-function parseIntoBlocks(content: string): Array<{ type: 'step' | 'equation' | 'text' | 'final'; content: string }> {
-  const blocks: Array<{ type: 'step' | 'equation' | 'text' | 'final'; content: string }> = [];
-
-  // First, extract all block equations and replace with placeholders
-  let processed = content;
-  const equations: string[] = [];
-
-  // Extract $$...$$ equations
-  processed = processed.replace(/\$\$([\s\S]*?)\$\$/g, (_, eq) => {
-    equations.push(eq.trim());
-    return `__EQ_${equations.length - 1}__`;
-  });
-
-  // Extract \[...\] equations
-  processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, (_, eq) => {
-    equations.push(eq.trim());
-    return `__EQ_${equations.length - 1}__`;
-  });
-
-  // Split by Step headers and Final Answer
-  const parts = processed.split(/(Step\s*\d+\s*:?|Final\s*Answer\s*:?)/i);
-
-  let currentType: 'step' | 'text' | 'final' = 'text';
-  let stepNum = 0;
-
-  for (let i = 0; i < parts.length; i++) {
-    const part = parts[i].trim();
-    if (!part) continue;
-
-    // Check if this is a header
-    if (/^Step\s*\d+/i.test(part)) {
-      currentType = 'step';
-      stepNum++;
-      continue;
-    }
-    if (/^Final\s*Answer/i.test(part)) {
-      currentType = 'final';
+      remaining = remaining.slice(inlineMathMatch[0].length);
+      index++;
       continue;
     }
 
-    // Process the content - split by equation placeholders
-    const segments = part.split(/(__EQ_\d+__)/g);
-
-    for (const segment of segments) {
-      const trimmed = segment.trim();
-      if (!trimmed) continue;
-
-      // Check if it's an equation placeholder
-      const eqMatch = trimmed.match(/__EQ_(\d+)__/);
-      if (eqMatch) {
-        const eqIndex = parseInt(eqMatch[1]);
-        blocks.push({ type: 'equation', content: equations[eqIndex] });
-      } else {
-        // It's text - split into sentences for better readability
-        const sentences = trimmed.split(/(?<=[.!?])\s+/);
-        const textContent = sentences.join('\n');
-        blocks.push({ type: currentType === 'final' ? 'final' : currentType, content: textContent });
+    // Check for \(...\) inline math
+    const inlineMathMatch2 = remaining.match(/^\\\(([^)]+?)\\\)/);
+    if (inlineMathMatch2) {
+      try {
+        elements.push(<InlineMath key={`${keyPrefix}-${index}`} math={inlineMathMatch2[1]} />);
+      } catch {
+        elements.push(<span key={`${keyPrefix}-${index}`}>{inlineMathMatch2[0]}</span>);
       }
+      remaining = remaining.slice(inlineMathMatch2[0].length);
+      index++;
+      continue;
     }
-  }
 
-  return blocks;
-}
-
-// Render a single block
-function renderBlock(block: { type: string; content: string }, index: number) {
-  if (block.type === 'equation') {
-    try {
-      return (
-        <div key={index} className="my-4 py-3 px-4 bg-neutral-900/60 rounded-lg border-l-3 border-blue-400 overflow-x-auto">
-          <BlockMath math={block.content} />
-        </div>
+    // Check for bold **text**
+    const boldMatch = remaining.match(/^\*\*([^*]+?)\*\*/);
+    if (boldMatch) {
+      elements.push(
+        <strong key={`${keyPrefix}-${index}`} className="font-semibold text-white">
+          {renderInlineContent(boldMatch[1], `${keyPrefix}-${index}-b`)}
+        </strong>
       );
-    } catch {
-      return <div key={index} className="text-red-400">{block.content}</div>;
+      remaining = remaining.slice(boldMatch[0].length);
+      index++;
+      continue;
     }
-  }
 
-  if (block.type === 'step') {
-    return (
-      <div key={index} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500">
-        <div className="space-y-2">
-          {block.content.split('\n').map((line, i) => (
-            <div key={i} className="leading-relaxed">
-              {renderLineWithMath(line, index * 100 + i)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (block.type === 'final') {
-    return (
-      <div key={index} className="bg-green-900/30 rounded-lg p-4 border-l-4 border-green-500">
-        <div className="font-semibold text-green-400 mb-2">Final Answer</div>
-        <div className="space-y-2">
-          {block.content.split('\n').map((line, i) => (
-            <div key={i}>
-              {renderLineWithMath(line, index * 100 + i)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Regular text
-  return (
-    <div key={index} className="leading-relaxed text-neutral-300">
-      {block.content.split('\n').map((line, i) => (
-        <div key={i} className="py-1">
-          {renderLineWithMath(line, index * 100 + i)}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// Main render function for message content
-function renderMathContent(content: string) {
-  const blocks = parseIntoBlocks(content);
-
-  // Group consecutive step blocks with their equations
-  const groupedContent: React.ReactElement[] = [];
-  let currentStepContent: Array<{ type: string; content: string }> = [];
-  let stepCounter = 0;
-
-  for (let i = 0; i < blocks.length; i++) {
-    const block = blocks[i];
-
-    if (block.type === 'step') {
-      // If we have accumulated content, flush it
-      if (currentStepContent.length > 0) {
-        stepCounter++;
-        groupedContent.push(
-          <div key={`step-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
-            <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
-            {currentStepContent.map((b, j) => {
-              if (b.type === 'equation') {
-                try {
-                  return (
-                    <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
-                      <BlockMath math={b.content} />
-                    </div>
-                  );
-                } catch {
-                  return <div key={j}>{b.content}</div>;
-                }
-              }
-              return (
-                <div key={j} className="text-neutral-300 leading-relaxed">
-                  {b.content.split('\n').map((line, k) => (
-                    <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        );
-        currentStepContent = [];
-      }
-      currentStepContent.push(block);
-    } else if (block.type === 'equation' && currentStepContent.length > 0) {
-      currentStepContent.push(block);
-    } else if (block.type === 'final') {
-      // Flush any remaining step content
-      if (currentStepContent.length > 0) {
-        stepCounter++;
-        groupedContent.push(
-          <div key={`step-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
-            <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
-            {currentStepContent.map((b, j) => {
-              if (b.type === 'equation') {
-                try {
-                  return (
-                    <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
-                      <BlockMath math={b.content} />
-                    </div>
-                  );
-                } catch {
-                  return <div key={j}>{b.content}</div>;
-                }
-              }
-              return (
-                <div key={j} className="text-neutral-300 leading-relaxed">
-                  {b.content.split('\n').map((line, k) => (
-                    <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        );
-        currentStepContent = [];
-      }
-
-      // Render final answer
-      groupedContent.push(
-        <div key={`final-${i}`} className="bg-green-900/30 rounded-lg p-4 border-l-4 border-green-500">
-          <div className="font-semibold text-green-400 mb-3">Final Answer</div>
-          <div className="space-y-2">
-            {block.content.split('\n').map((line, k) => (
-              <div key={k}>{renderLineWithMath(line, i * 100 + k)}</div>
-            ))}
-          </div>
-        </div>
+    // Check for checkmark ✓
+    const checkMatch = remaining.match(/^✓/);
+    if (checkMatch) {
+      elements.push(
+        <span key={`${keyPrefix}-${index}`} className="text-green-400 font-bold">✓</span>
       );
+      remaining = remaining.slice(1);
+      index++;
+      continue;
+    }
+
+    // Regular text - find the next special character
+    const nextSpecial = remaining.search(/(\$|\*\*|✓|\\[\(\[])/);
+    if (nextSpecial === -1) {
+      elements.push(<span key={`${keyPrefix}-${index}`}>{remaining}</span>);
+      break;
+    } else if (nextSpecial === 0) {
+      // If we're here, we couldn't match any pattern, consume one character
+      elements.push(<span key={`${keyPrefix}-${index}`}>{remaining[0]}</span>);
+      remaining = remaining.slice(1);
+      index++;
     } else {
-      // Standalone content
-      if (currentStepContent.length > 0) {
-        currentStepContent.push(block);
-      } else {
-        groupedContent.push(renderBlock(block, i));
-      }
+      elements.push(<span key={`${keyPrefix}-${index}`}>{remaining.slice(0, nextSpecial)}</span>);
+      remaining = remaining.slice(nextSpecial);
+      index++;
     }
   }
 
-  // Flush any remaining content
-  if (currentStepContent.length > 0) {
-    stepCounter++;
-    groupedContent.push(
-      <div key={`step-final-${stepCounter}`} className="bg-neutral-800/40 rounded-lg p-4 border-l-4 border-blue-500 space-y-3">
-        <div className="font-semibold text-blue-400 pb-2 border-b border-neutral-700">Step {stepCounter}</div>
-        {currentStepContent.map((b, j) => {
-          if (b.type === 'equation') {
-            try {
-              return (
-                <div key={j} className="py-2 px-3 bg-neutral-900/50 rounded overflow-x-auto">
-                  <BlockMath math={b.content} />
-                </div>
-              );
-            } catch {
-              return <div key={j}>{b.content}</div>;
-            }
-          }
-          return (
-            <div key={j} className="text-neutral-300 leading-relaxed">
-              {b.content.split('\n').map((line, k) => (
-                <div key={k}>{renderLineWithMath(line, j * 100 + k)}</div>
-              ))}
-            </div>
-          );
-        })}
+  return elements;
+}
+
+// Render a block of math ($$...$$ or \[...\])
+function renderBlockMath(math: string, key: string): React.ReactNode {
+  try {
+    // Check if it contains \boxed
+    const hasBoxed = math.includes('\\boxed');
+    return (
+      <div
+        key={key}
+        className={`my-4 py-3 px-4 rounded-lg overflow-x-auto ${
+          hasBoxed
+            ? 'bg-green-900/30 border border-green-600/50'
+            : 'bg-neutral-900/60 border border-neutral-700/50'
+        }`}
+      >
+        <BlockMath math={math} />
       </div>
     );
+  } catch {
+    return <div key={key} className="text-red-400 font-mono text-sm">{math}</div>;
+  }
+}
+
+// Main markdown parser and renderer
+function renderMarkdown(content: string): React.ReactNode {
+  const elements: React.ReactNode[] = [];
+
+  // Split content into lines for processing
+  const lines = content.split('\n');
+  let index = 0;
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmedLine = line.trim();
+
+    // Skip empty lines but add spacing
+    if (!trimmedLine) {
+      i++;
+      continue;
+    }
+
+    // Check for block math $$...$$ (may span multiple lines)
+    if (trimmedLine.startsWith('$$')) {
+      let mathContent = trimmedLine.slice(2);
+      let endIndex = i;
+
+      // Check if it ends on the same line
+      if (mathContent.endsWith('$$') && mathContent.length > 2) {
+        mathContent = mathContent.slice(0, -2);
+      } else {
+        // Find the closing $$
+        endIndex++;
+        while (endIndex < lines.length && !lines[endIndex].trim().endsWith('$$')) {
+          mathContent += '\n' + lines[endIndex];
+          endIndex++;
+        }
+        if (endIndex < lines.length) {
+          const lastLine = lines[endIndex].trim();
+          mathContent += '\n' + lastLine.slice(0, -2);
+        }
+      }
+
+      elements.push(renderBlockMath(mathContent.trim(), `block-${index}`));
+      index++;
+      i = endIndex + 1;
+      continue;
+    }
+
+    // Check for \[...\] block math
+    if (trimmedLine.startsWith('\\[')) {
+      let mathContent = trimmedLine.slice(2);
+      let endIndex = i;
+
+      if (mathContent.endsWith('\\]')) {
+        mathContent = mathContent.slice(0, -2);
+      } else {
+        endIndex++;
+        while (endIndex < lines.length && !lines[endIndex].trim().endsWith('\\]')) {
+          mathContent += '\n' + lines[endIndex];
+          endIndex++;
+        }
+        if (endIndex < lines.length) {
+          const lastLine = lines[endIndex].trim();
+          mathContent += '\n' + lastLine.slice(0, -2);
+        }
+      }
+
+      elements.push(renderBlockMath(mathContent.trim(), `block-${index}`));
+      index++;
+      i = endIndex + 1;
+      continue;
+    }
+
+    // Horizontal rule ---
+    if (/^[-*_]{3,}$/.test(trimmedLine)) {
+      elements.push(
+        <hr key={`hr-${index}`} className="my-6 border-neutral-600" />
+      );
+      index++;
+      i++;
+      continue;
+    }
+
+    // H1 header #
+    if (trimmedLine.startsWith('# ')) {
+      elements.push(
+        <h1 key={`h1-${index}`} className="text-xl font-bold text-white mt-6 mb-3 pb-2 border-b border-neutral-600">
+          {renderInlineContent(trimmedLine.slice(2), `h1-${index}`)}
+        </h1>
+      );
+      index++;
+      i++;
+      continue;
+    }
+
+    // H2 header ##
+    if (trimmedLine.startsWith('## ')) {
+      elements.push(
+        <h2 key={`h2-${index}`} className="text-lg font-bold text-blue-400 mt-5 mb-2">
+          {renderInlineContent(trimmedLine.slice(3), `h2-${index}`)}
+        </h2>
+      );
+      index++;
+      i++;
+      continue;
+    }
+
+    // H3 header ###
+    if (trimmedLine.startsWith('### ')) {
+      elements.push(
+        <h3 key={`h3-${index}`} className="text-base font-semibold text-cyan-400 mt-4 mb-2">
+          {renderInlineContent(trimmedLine.slice(4), `h3-${index}`)}
+        </h3>
+      );
+      index++;
+      i++;
+      continue;
+    }
+
+    // H4 header ####
+    if (trimmedLine.startsWith('#### ')) {
+      elements.push(
+        <h4 key={`h4-${index}`} className="text-sm font-semibold text-purple-400 mt-3 mb-1">
+          {renderInlineContent(trimmedLine.slice(5), `h4-${index}`)}
+        </h4>
+      );
+      index++;
+      i++;
+      continue;
+    }
+
+    // Regular paragraph
+    elements.push(
+      <p key={`p-${index}`} className="my-2 leading-relaxed text-neutral-200">
+        {renderInlineContent(trimmedLine, `p-${index}`)}
+      </p>
+    );
+    index++;
+    i++;
   }
 
-  return <div className="space-y-4">{groupedContent}</div>;
+  return <div className="space-y-1">{elements}</div>;
 }
 
 export function MessageBubble({
@@ -426,19 +280,17 @@ export function MessageBubble({
   const isUser = role === 'user';
 
   return (
-    <div
-      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
-    >
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       <div
-        className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+        className={`max-w-[90%] rounded-2xl px-5 py-4 ${
           isUser
             ? 'bg-neutral-700 text-white'
-            : 'bg-neutral-800 text-neutral-100'
+            : 'bg-neutral-800/90 text-neutral-100'
         }`}
       >
         {/* Image preview for user messages */}
         {imageUrl && isUser && (
-          <div className="mb-2">
+          <div className="mb-3">
             <img
               src={imageUrl}
               alt="Uploaded"
@@ -449,12 +301,12 @@ export function MessageBubble({
 
         {/* Message content */}
         <div className="text-sm md:text-base">
-          {isUser ? content : renderMathContent(content)}
+          {isUser ? content : renderMarkdown(content)}
         </div>
 
         {/* Reasoning section (collapsible) */}
         {reasoning && (
-          <div className="mt-3 pt-3 border-t border-neutral-700">
+          <div className="mt-4 pt-3 border-t border-neutral-700">
             <button
               onClick={() => setShowReasoning(!showReasoning)}
               className="flex items-center text-xs text-neutral-400 hover:text-neutral-300 transition-colors"
@@ -467,7 +319,7 @@ export function MessageBubble({
               {t('reasoning')}
             </button>
             {showReasoning && (
-              <div className="mt-2 p-2 bg-neutral-900 rounded-lg text-xs text-neutral-300 max-h-48 overflow-y-auto">
+              <div className="mt-2 p-3 bg-neutral-900 rounded-lg text-xs text-neutral-300 max-h-64 overflow-y-auto">
                 <pre className="whitespace-pre-wrap font-mono">{reasoning}</pre>
               </div>
             )}
@@ -476,7 +328,7 @@ export function MessageBubble({
 
         {/* Token usage and cost display */}
         {!isUser && (tokens || cost !== undefined) && (
-          <div className="mt-3 pt-3 border-t border-neutral-700 flex items-center justify-between flex-wrap gap-2">
+          <div className="mt-4 pt-3 border-t border-neutral-700 flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center space-x-3 text-xs text-neutral-500">
               {tokens && (
                 <span>
@@ -496,7 +348,7 @@ export function MessageBubble({
               className="flex items-center text-xs text-neutral-500 hover:text-neutral-300 transition-colors"
             >
               {copied ? (
-                <Check className="w-4 h-4 mr-1 text-white" />
+                <Check className="w-4 h-4 mr-1 text-green-400" />
               ) : (
                 <Copy className="w-4 h-4 mr-1" />
               )}
