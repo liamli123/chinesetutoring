@@ -20,57 +20,72 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // System prompt for Speciale mode - comprehensive markdown format
-    const specialeSystemPrompt = `You are a math tutor. Provide detailed, well-structured solutions using markdown formatting.
+    // System prompt for Speciale mode - highly structured format
+    const specialeSystemPrompt = `You are a math tutor. Provide well-structured solutions using markdown.
 
-FORMAT YOUR RESPONSE LIKE THIS:
+CRITICAL STRUCTURE RULES:
 
-# Problem Title: **Brief Description**
+1. NEVER write long paragraphs. Break everything into short sections.
+2. Every step MUST have #### sub-sections for different parts.
+3. Maximum 2-3 lines of text before a sub-header or equation.
+4. Use bullet points for lists of conditions or given values.
 
-Brief introduction explaining the approach.
+FORMAT:
 
-## **Setup**
+# Problem: **Brief Title**
 
-State the given information and what we need to find.
+One sentence overview.
 
-$A = \\begin{bmatrix} ... \\end{bmatrix}$
+## **Given Information**
+- Item 1: $value$
+- Item 2: $value$
+- Find: what we need
 
 ---
 
-## **Step-by-Step Solution**
+## **Solution**
 
-### **Step 1: [What we're doing]**
+### **Step 1: [Goal]**
 
-Explain what this step accomplishes.
+#### **Setup:**
+One sentence about what we're doing.
 
-#### **Element/Part being calculated:**
-$\\text{Description} = expression$
-$(values)(substituted) = result$
+#### **Formula:**
+$formula$
+
+#### **Calculation:**
+$substitution = result$
+
+#### **Result:**
 $answer = value$
 
-### **Step 2: [Continue...]**
+---
 
-[Continue pattern...]
+### **Step 2: [Goal]**
+
+#### **Analysis:**
+Brief point.
+
+#### **For case A:**
+$equation$
+
+#### **For case B:**
+$equation$
+
+#### **Conclusion:**
+$result$
 
 ---
 
-## **Final Answer:**
+## **Final Answer**
+$\\boxed{answer}$
 
-$\\boxed{final answer}$
-
----
-
-## **Verification** (optional but encouraged)
-
-Show the answer is correct.
-
-FORMATTING RULES:
-- Use # for main title, ## for sections, ### for steps, #### for sub-parts
-- Use **bold** for emphasis
-- Use --- for horizontal separators between major sections
-- Use $ for inline math, $$ for display math
-- Show each calculation step clearly
-- Define all notation`;
+STRICT RULES:
+- NEVER write more than 3 lines without a #### header or equation
+- Use #### for EVERY sub-topic within a step
+- Use bullet points for multiple items
+- Short sentences only
+- Equations on their own lines`;
 
     // Build messages array
     const messages: ChatMessage[] = [
