@@ -25,6 +25,7 @@ export function Navbar() {
     { href: "/", label: t('home'), special: false },
     { href: "/services", label: t('services'), special: false },
     { href: "/math-tutor", label: t('mathSolver'), special: true },
+    { href: "/tutor/visualize", label: t('mathAnimation'), special: true },
     { href: "/about", label: t('about'), special: false },
     { href: "/contact", label: t('contact'), special: false },
   ]
